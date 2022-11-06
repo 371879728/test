@@ -1,159 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Page Title</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
+  <title>Loading TyranoScript</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+<meta name="robots" content="noindex,nofollow" />
+
+<link href="./tyrano/tyrano.css" rel="stylesheet" type="text/css"/>
+
+<link href="./tyrano/libs/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="./tyrano/libs/jquery-3.4.1.min.js"></script>
+
+<script>
+
+try{
+    window.jQuery = window.$ = require('./tyrano/libs/jquery-3.4.1.min.js');
+}catch(e){
+    
 }
 
-/* Style the body */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-}
 
-/* Header/logo Title */
-.header {
-  padding: 80px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-}
+</script>
 
-/* Increase the font size of the heading */
-.header h1 {
-  font-size: 40px;
-}
+<script src="./tyrano/libs/jquery-migrate-1.4.1.js"></script>
 
-/* Style the top navigation bar */
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
 
-/* Style the navigation bar links */
-.navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-}
 
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
-}
+<script type="text/javascript" src="./tyrano/libs/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./tyrano/libs/jquery.a3d.js"></script>
+<script type="text/javascript" src="./tyrano/libs/jsrender.min.js"></script>
 
-/* Change color on hover */
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
+<!-- 廃止予定 alertify.js -->
+<link href="./tyrano/libs/alertify/alertify.core.css" rel="stylesheet" type="text/css"/>
+<link href="./tyrano/libs/alertify/alertify.default.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="./tyrano/libs/alertify/alertify.min.js"></script>
 
-/* Column container */
-.row {  
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-}
+<!-- remodal -->
+<link rel="stylesheet" href="./tyrano/libs/remodal/remodal.css">
+<link rel="stylesheet" href="./tyrano/libs/remodal/remodal-default-theme.css">
+<script src="./tyrano/libs/remodal/remodal.js"></script>
 
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
+<script type="text/javascript" src="./tyrano/libs/html2canvas.js"></script>
 
-/* Main column */
-.main {   
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
 
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
+<script type="text/javascript" src="./data/system/KeyConfig.js"></script>
 
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-}
+<script type="text/javascript" src="./tyrano/lang.js" ></script>
+<script type="text/javascript" src="./tyrano/libs.js" ></script>
 
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {   
-    flex-direction: column;
-  }
-}
+<script type="text/javascript" src="./tyrano/tyrano.js" ></script>
+<script type="text/javascript" src="./tyrano/tyrano.base.js" ></script>
 
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
-</style>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.event.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.key_mouse.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.layer.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.menu.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.parser.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.rider.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.studio.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_audio.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_camera.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_ext.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_system.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_vchat.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_ar.js" ></script>
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag_three.js" ></script>
+
+<script type="text/javascript" src="./tyrano/plugins/kag/kag.tag.js" ></script>
+
+<link href="./tyrano/libs/textillate/assets/animate.css" rel="stylesheet">
+<script type="text/javascript" src="./tyrano/libs/textillate/assets/jquery.lettering.js"></script>
+<script type="text/javascript" src="./tyrano/libs/textillate/jquery.textillate.js"></script>
+<script type="text/javascript" src="./tyrano/libs/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" src="./tyrano/libs/howler.js"></script>
+<script type="text/javascript" src="./tyrano/libs/jsQR.js"></script>
+
+
+<script type="text/javascript" src="./tyrano/libs/lz-string.min.js"></script>
+
+<script type="text/javascript">
+function doScroll() { if (window.pageYOffset === 0) { window.scrollTo(0,1); } }  
+window.onload = function() { setTimeout(doScroll, 100); }  
+
+</script>  
+
 </head>
-<body>
 
-<div class="header">
-  <h1>My Website</h1>
-  <p>A website created by me.</p>
+<body onselectstart="return false" onContextmenu="return false" ontouchmove="event.preventDefault()" >
+
+<div id="tyrano_base" class="tyrano_base" style="overflow:hidden" unselectable="on" ondragstart="return false" ></div>
+<div id="vchat_base" class="vchat_base" style="overflow:hidden" unselectable="on" ondragstart="return false" >
+    
+
+</div> <!-- end vchat_base -->
+
+
+
+
+<!--  First シナリオファイルに外部ファイルを利用したい場合は、こちらにシナリオファイルのURLを指定できます-->
+<!--
+<input type="hidden" id="first_scenario_file" value="http://test.com/tyrano/data/scenario/first.ks">
+-->
+
+<!-- コンフィグ調整をindex.htmlでもできる -->
+<!--
+<input type="hidden" tyrano="config" key="vchat" value="true" />
+<input type="hidden" tyrano="config" key="vchatMenuVisible" value="true" />
+-->
+
+<!-- モーダル用 -->
+<div class="remodal-bg" ></div>
+<div class="remodal" data-remodal-id="modal" data-remodal-options="closeOnEscape:false, closeOnOutsideClick:false">
+  <!--
+  <button data-remodal-action="close" class="remodal-close"></button>
+  -->
+  <h1 class="remodal_title"></h1>
+  <p class="remodal_txt">
+  </p>
+  <br>
+  <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+  <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
 </div>
 
-<div class="navbar">
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#" class="right">Link</a>
-</div>
-
-<div class="row">
-  <div class="side">
-    <h2>自建网站极简教学</h2>
-    <h5>Photo of me:</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    <h3>More Text</h3>
-    <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div>
-  </div>
-  <div class="main">
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    <br>
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Sep 2, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-  </div>
-</div>
-
-<div class="footer">
-  <h2>Footer</h2>
-</div>
 
 </body>
 </html>
