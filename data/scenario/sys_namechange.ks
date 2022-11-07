@@ -1,6 +1,8 @@
-[_tb_system_call  storage="system/_sys_namechange.ks"  ]
+[_tb_system_call storage=system/_sys_namechange.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [if exp="tf.name_fade != false"]
 [mask time="300"]
 [endif]
@@ -47,18 +49,22 @@
 [jump target="*nameChange_back"]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *dialog
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [commit name="tf.myozi"]
 [commit name="tf.name"]
 [eval exp="tf.m = tf.myozi"]
 [eval exp="tf.n = tf.name"]
 [dialog type="confirm" text="&'「' + tf.myozi + ' ' + tf.name + '」でいいですか？'" storage="" target="next" storage_cancel="" target_cancel="nameChange_back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eval exp="sf.myozi = tf.myozi"]
 [eval exp="sf.name = tf.name"]
 
@@ -66,9 +72,11 @@
 
 [jump storage="mainStory01.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [mask time="300"]
 [cm]
 
@@ -78,4 +86,5 @@
 [eval exp="tf.title_fade = true"]
 [jump storage="title_screen.ks" target="back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

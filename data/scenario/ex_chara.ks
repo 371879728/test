@@ -1,7 +1,10 @@
-[_tb_system_call  storage="system/_ex_chara.ks"  ]
-*start
-[tb_start_tyrano_code  ]
+[_tb_system_call storage=system/_ex_chara.ks]
 
+*start
+
+[tb_start_tyrano_code]
+
+; ▼mask on
 [mask cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 
 [eval exp="tf.modal_page_change = false"]
@@ -16,6 +19,7 @@
 [eval exp="tf.nowpage = 1"]
 [eval exp="tf.maxpage = 2"]
 
+; ▼キャラリストマクロ
 [macro name="character_list"]
 [eval exp="tf.target = '*' + mp.name"]
 
@@ -27,8 +31,10 @@
 [endif]
 [endmacro]
 
+; ◆リスト表示
 *back
 
+; 変数リセット
 [eval exp="tf.modalpage = 1"]
 
 [eval exp="tf.nowface = []"]
@@ -47,6 +53,7 @@
 [eval exp="tf.nowface['op']['badge'] = false"]
 [eval exp="tf.nowface['op']['lost'] = false"]
 
+; モーダル内のキャラ画像横位置
 [eval exp="tf.modal_img_left = []"]
 [eval exp="tf.modal_img_left['honoka'] = 55"]
 [eval exp="tf.modal_img_left['yamato'] = 20"]
@@ -76,8 +83,10 @@ $('.3_fore').animate({"opacity": 0}, 300);
 
 [image layer="0" storage="../image/extra/ttl_character.png" left="15" top="12" visible="true"]
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
+; ▼リスト
 [eval exp="tf.x = 140"]
 [eval exp="tf.z = 150"]
 [eval exp="tf.y = 90"]
@@ -98,6 +107,7 @@ $('.3_fore').animate({"opacity": 0}, 300);
 [endif]
 [endnowait]
 
+; ▼ページ操作
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_prev.png" x="280" y="500" target="*prev"]
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_next.png" x="590" y="500" target="*next"]
 [message_current layer="message0"]
@@ -108,6 +118,7 @@ $('.3_fore').animate({"opacity": 0}, 300);
 [font_color_reset]
 [endnowait]
 
+; ▼mask_off
 [mask_off cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = false"]
 [eval exp="f.ex_fade = true"]
@@ -136,9 +147,11 @@ $('.3_fore').animate({"opacity": 0}, 300);
 
 [jump target="*back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *set
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 *honoka
 [eval exp="tf.nowchara = 'honoka'"]
 [eval exp="tf.nowpose = tf.nowchara"]
@@ -205,10 +218,13 @@ $('.3_fore').animate({"opacity": 0}, 300);
 [jump target="*chara_modal"]
 [s]
 
-[_tb_end_tyrano_code  ]
-*chara_modal
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*chara_modal
+
+[tb_start_tyrano_code]
+
+; ページ切り替え時は中身のみフェードアウト
 [if exp="tf.modal_page_change"]
 
 [iscript]
@@ -217,6 +233,7 @@ $('.myCharacter').empty();
 });
 [endscript]
 
+; ポーズ切り替え
 [if exp="tf.modal_pose_change"]
 [chara_hide_all layer="3" wait="true" time="200"]
 [endif]
@@ -225,6 +242,7 @@ $('.myCharacter').empty();
 [endif]
 
 
+; ▼HTML
 [macro name="profList"]
 <li>
 <p class="ttl">[emb exp="mp.ttl"]</p>
@@ -233,11 +251,13 @@ $('.myCharacter').empty();
 [endmacro]
 
 [html]
+; カバー
 [if exp="tf.modal_page_change == false"]
 <div class="window-cover">
 </div>
 [endif]
 
+; キャラ
 <div class="myCharacter">
 <p id="close-btn"><img src="data/image/extra/chara_close.png"></p>
 
@@ -684,11 +704,13 @@ Coming soon
 </div>
 [endhtml]
 
+; ボタン定義
 [htmlBtn id="close-btn" storage="ex_chara.ks" target="*back"]
 [htmlBtn id="tab-btn1" storage="ex_chara.ks" target="*change_data"]
 [htmlBtn id="tab-btn2" storage="ex_chara.ks" target="*change_prof"]
 [htmlBtn id="tab-btn3" storage="ex_chara.ks" target="*change_face"]
 
+; ▼ページ１用
 [iscript]
 if(tf.modalpage == 1 && tf.nowchara == 'honoka'){
 var name = sf.myozi + ' ' + sf.name;
@@ -724,6 +746,8 @@ TG.kag.ftag.startTag("jump",{srorage:'ex_chara.ks', target:'*chara_modal'});
 });
 [endscript]
 
+; ▼ページ２用
+; 表情リスト用マクロ
 [macro name="chara_face_list"]
 [iscript]
 var append, label;
@@ -759,6 +783,8 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 
 [if exp="tf.modalpage == 3"]
 
+; ▼パーツリスト描画
+; ポーズ
 [if exp="sf.ex_chara_parts[tf.nowchara]['pose'] != null && sf.ex_chara_parts[tf.nowchara]['pose'].length > 0"]
 [eval exp="tf.pose_loop = 0"]
 *pose_loop
@@ -767,6 +793,7 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 [jump cond="tf.pose_loop < sf.ex_chara_parts[tf.nowchara]['pose'].length" target="*pose_loop"]
 [endif]
 
+; 衣装
 [if exp="sf.ex_chara_parts[tf.nowpose]['cos'] != null && sf.ex_chara_parts[tf.nowpose]['cos'].length > 0"]
 [eval exp="tf.cos_loop = 0"]
 *cos_loop
@@ -775,6 +802,7 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 [jump cond="tf.cos_loop < sf.ex_chara_parts[tf.nowpose]['cos'].length" target="*cos_loop"]
 [endif]
 
+; 眉
 [if exp="sf.ex_chara_parts[tf.nowpose]['mayu'] != null && sf.ex_chara_parts[tf.nowpose]['mayu'].length > 0"]
 [eval exp="tf.mayu_loop = 0"]
 *mayu_loop
@@ -783,6 +811,7 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 [jump cond="tf.mayu_loop < sf.ex_chara_parts[tf.nowpose]['mayu'].length" target="*mayu_loop"]
 [endif]
 
+; 目
 [if exp="sf.ex_chara_parts[tf.nowpose]['me'] != null && sf.ex_chara_parts[tf.nowpose]['me'].length > 0"]
 [eval exp="tf.me_loop = 0"]
 *me_loop
@@ -791,6 +820,7 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 [jump cond="tf.me_loop < sf.ex_chara_parts[tf.nowpose]['me'].length" target="*me_loop"]
 [endif]
 
+; 口
 [if exp="sf.ex_chara_parts[tf.nowpose]['kuti'] != null && sf.ex_chara_parts[tf.nowpose]['kuti'].length > 0"]
 [eval exp="tf.kuti_loop = 0"]
 *kuti_loop
@@ -799,6 +829,7 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 [jump cond="tf.kuti_loop < sf.ex_chara_parts[tf.nowpose]['kuti'].length" target="*kuti_loop"]
 [endif]
 
+; オプション
 [if exp="sf.ex_chara_parts[tf.nowpose]['op'] != null && sf.ex_chara_parts[tf.nowpose]['op'].length > 0"]
 [eval exp="tf.op_loop = 0"]
 *op_loop
@@ -814,16 +845,20 @@ $('.myCharacter .chara-face #' + mp.name + '-' + mp.part + '-' + tf.nowface[mp.p
 
 [endif]
 
+; ▼最初のみ描画
 [if exp="tf.modal_page_change == false"]
+; 表示準備
 [iscript]
 $('.window-cover').css({"opacity": 0, "z-index" : 100000000 });
 $('.3_fore').css({"opacity": 0, "z-index" : 100000000, "width": "320px"});
 [endscript]
 
+; キャラ表示
 [layopt layer="3" visible="true"]
 [chara_img layer="3" name="&tf.nowpose" left="&tf.modal_img_left[tf.nowpose]" mode="show" time="0"]
 [wa]
 
+; フェードイン
 [iscript]
 $('.window-cover').animate({"opacity": 1}, 300);
 $('.3_fore').animate({"opacity": 1}, 300);
@@ -862,9 +897,12 @@ $('.myCharacter').animate({"opacity": 1}, 200);
 [eval exp="tf.modalpage = 3"]
 [jump target="*chara_modal"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *face_change
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; アクティブ変更
 [iscript]
 
 if(tf.select_part == 'op'){
@@ -886,6 +924,7 @@ $('.myCharacter .chara-face #' + tf.select_name + '-' + tf.select_part + '-' + t
 [endscript]
 
 
+; ポーズ切り替えの場合
 [if exp="tf.select_part == 'pose'"]
 [iscript]
 tf.nowpose = sf.ex_chara_parts[tf.nowchara]["pose"][tf.select_num];
@@ -910,6 +949,7 @@ tf.nowpose = sf.ex_chara_parts[tf.nowchara]["pose"][tf.select_num];
 [endif]
 
 
+; 表情更新の場合
 [eval exp="tf.set = sf.ex_chara_parts[tf.nowpose][tf.select_part][tf.select_num]"]
 
 [fa_chara_part cond="tf.select_part == 'cos'" layer="3" name="&tf.nowpose" cos="&tf.set"]
@@ -930,10 +970,12 @@ tf.nowpose = sf.ex_chara_parts[tf.nowchara]["pose"][tf.select_num];
 [s]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="ex_index.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

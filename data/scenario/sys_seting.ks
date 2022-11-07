@@ -1,6 +1,9 @@
-[_tb_system_call  storage="system/_sys_seting.ks"  ]
+[_tb_system_call storage=system/_sys_seting.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆変数初期設定
 [iscript]
 
 sf.windowW = 1024;
@@ -109,9 +112,11 @@ sf.eventcg_view['3b'] = sf.view_debug;
 [configdelay speed="&tf.speed"]
 
 [autoconfig speed="&sf.autoSpeed"]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *indent
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [iscript]
 f.indent_rate = 1;
 
@@ -131,17 +136,22 @@ text.showMessage_old(message_str, pm);
 text.setIndent($(".chara_name_area").html() !== "");
 };
 [endscript]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *chara
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 
+; ◆キャラ定義
 [chara_config time="300" pos_mode="false" effect="easeInOutCubic"]
 [plugin name="frameanimation" blank_image="./data/image/blank.png"]
 
 
+; -----------------------------------
 
 
+; ◆キャラ登録準備
 [iscript]
 if(sf.charaData == null) sf.charaData = {};
 if(sf.ex_chara_view == null) sf.ex_chara_view = {};
@@ -152,6 +162,7 @@ sf.charaW = {};
 [endscript]
 
 
+; ◆EX用変数準備
 [iscript]
 // sf.ex_chara_num[0] = 'honoka';
 // sf.ex_chara_name["honoka"] = 0;
@@ -168,6 +179,7 @@ tf.ex_parts_count = 0;
 [endscript]
 
 
+; ◆キャラ登録関数
 [macro name="charaSet"]
 [wait time="1"]
 
@@ -186,16 +198,18 @@ sf.charaW[tf.name] = mp.w;
 [endmacro]
 
 
+; ◆表情登録関数
 [macro name="faceSet"]
+; [wait time="1"]
 
 [iscript]
 
 // ----------------------------------------------------------------
 var chara = mp.chara,
-parts = mp.parts,
-id    = mp.id,
-label = mp.label,
-img   = mp.img;
+	parts = mp.parts,
+	id    = mp.id,
+	label = mp.label,
+	img   = mp.img;
 
 
 // 初期化が必要であれば初期化
@@ -211,8 +225,8 @@ img = img2;
 
 // パーツ登録
 sf.charaData[chara][parts][id] = {
-"label" : label,
-"img" : img,
+	"label" : label,
+	"img" : img,
 };
 
 // ----------------------------------------------------------------
@@ -268,6 +282,7 @@ tf.img   = img;
 [endmacro]
 
 
+; ▽ほのか
 [charaSet id="1" name="honoka" w="259" y="120"]
 [faceSet chara="honoka" parts="cos" id="normal" label="制服"]
 [faceSet chara="honoka" parts="cos" id="shihuku" label="私服"]
@@ -300,12 +315,12 @@ tf.img   = img;
 var name = 'honoka';
 sf.charaData[name]["pose"] = {};
 sf.charaData[name]["pose"]["normal"] = {
-"label" : "通常",
-"view" : sf.view_debug
+	"label" : "通常",
+	"view" : sf.view_debug
 };
 sf.charaData[name]["pose"]["detana"] = {
-"label" : "出たな！",
-"view" : sf.view_debug
+	"label" : "出たな！",
+	"view" : sf.view_debug
 };
 
 sf.ex_chara_label[name]["pose"] = [];
@@ -330,6 +345,7 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['honoka']" name="honoka" part="me" s="7" id="hart"]
 [fa_animation anime="&tf.me" w="&sf.charaW['honoka']" name="honoka" part="me" s="7" id="odoroki"]
 
+; ほのか戦闘態勢
 [charaSet name="honoka_battle" w="340" y="115"]
 [faceSet chara="honoka_battle" parts="cos" id="normal" label="制服"]
 [faceSet chara="honoka_battle" parts="me" id="normal" label="通常"]
@@ -337,6 +353,7 @@ tf.me = [
 [faceSet chara="honoka_battle" parts="mayu" id="normal" label="きりっ"]
 
 
+; ヤマト
 [charaSet id="2" name="yamato" w="300" y="30"]
 [faceSet chara="yamato" parts="cos" id="normal" label="ジャージ"]
 [faceSet chara="yamato" parts="cos" id="oroshi" label="髪おろし"]
@@ -369,16 +386,16 @@ tf.me = [
 var name = 'yamato';
 sf.charaData[name]["pose"] = {};
 sf.charaData[name]["pose"]["normal"] = {
-"label" : "通常",
-"view" : true
+	"label" : "通常",
+	"view" : true
 };
 sf.charaData[name]["pose"]["detana"] = {
-"label" : "出たな！",
-"view" : sf.view_debug
+	"label" : "出たな！",
+	"view" : sf.view_debug
 };
 sf.charaData[name]["pose"]["dog"] = {
-"label" : "通常(犬)",
-"view" : sf.view_debug
+	"label" : "通常(犬)",
+	"view" : sf.view_debug
 };
 
 sf.ex_chara_parts[name]["pose"] = [];
@@ -405,6 +422,7 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['yamato']" name="yamato" part="me" s="6" id="sorashi"]
 [fa_animation anime="&tf.me" w="&sf.charaW['yamato']" name="yamato" part="me" s="6" id="odoroki"]
 
+; ヤマト戦闘態勢
 [charaSet name="yamato_battle" w="420" y="40"]
 [faceSet chara="yamato_battle" parts="cos" id="normal" label="ジャージ"]
 [faceSet chara="yamato_battle" parts="me" id="normal" label="通常"]
@@ -412,6 +430,7 @@ tf.me = [
 [faceSet chara="yamato_battle" parts="mayu" id="normal" label="きりっ"]
 
 
+; 犬ヤマト
 [charaSet name="yamato_dog" w="360" y="15"]
 [faceSet chara="yamato_dog" parts="cos" id="normal" label="ジャージ" img="jersey"]
 [faceSet chara="yamato_dog" parts="kuti" id="normal" label="通常"]
@@ -449,6 +468,7 @@ sf.ex_chara_view_p['yamato_dog']["pose"]["yamato_dog"]["view"] = sf.view_debug;
 [endscript]
 
 
+; はるお
 [charaSet id="3" name="haruo" w="310" y="5"]
 [faceSet chara="haruo" parts="cos" id="normal" label="通常"]
 [faceSet chara="haruo" parts="cos" id="apron" label="エプロンなし"]
@@ -464,6 +484,7 @@ sf.ex_chara_view_p['yamato_dog']["pose"]["yamato_dog"]["view"] = sf.view_debug;
 [faceSet chara="haruo" parts="mayu" id="normal" label="普通"]
 [faceSet chara="haruo" parts="mayu" id="kiri" label="きりっ"]
 [faceSet chara="haruo" parts="op" id="ase" label="汗"]
+; [faceSet chara="haruo" parts="op" id="tere" label="照れ"]
 [iscript]
 tf.me = [
 ["20%", 1],
@@ -480,6 +501,7 @@ tf.me = [
 [endscript]
 [fa_animation anime="&tf.me" w="&sf.charaW['haruo']" name="haruo" part="me" s="7" id="normal"]
 
+; 中学生
 [charaSet id="4" name="boy" w="280" y="100"]
 [faceSet chara="boy" parts="cos" id="normal" label="通常"]
 [faceSet chara="boy" parts="me" id="normal" label="普通"]
@@ -507,6 +529,7 @@ tf.me = [
 [endscript]
 [fa_animation anime="&tf.me" w="&sf.charaW['boy']" name="boy" part="me" s="6" id="normal"]
 
+; リーマン
 [charaSet id="5" name="ryman" w="380" y="10"]
 [faceSet chara="ryman" parts="cos" id="normal" label="通常"]
 [faceSet chara="ryman" parts="me" id="normal" label="普通"]
@@ -538,6 +561,7 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['ryman']" name="ryman" part="me" s="7" id="normal"]
 
 
+; りりな
 [charaSet id="6" name="ririna" w="380" y="60"]
 [faceSet chara="ririna" parts="cos" id="normal" label="通常"]
 [faceSet chara="ririna" parts="me" id="normal" label="普通"]
@@ -567,6 +591,7 @@ tf.me = [
 [endscript]
 [fa_animation anime="&tf.me" w="&sf.charaW['ririna']" name="ririna" part="me" s="6" id="normal"]
 
+; 須賀
 [charaSet id="7" name="tatsumi" w="330" y="20"]
 [faceSet chara="tatsumi" parts="cos" id="normal" label="通常"]
 [faceSet chara="tatsumi" parts="me" id="normal" label="普通"]
@@ -597,6 +622,7 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['tatsumi']" name="tatsumi" part="me" s="6" id="normal"]
 
 
+; アスカ
 [charaSet id="8" name="asuka" w="230" y="50"]
 [faceSet chara="asuka" parts="cos" id="normal" label="通常"]
 [faceSet chara="asuka" parts="me" id="normal" label="普通"]
@@ -624,6 +650,7 @@ tf.me = [
 [endscript]
 [fa_animation anime="&tf.me" w="&sf.charaW['asuka']" name="asuka" part="me" s="6" id="normal"]
 
+; ナナミ
 [charaSet id="9" name="nanami" w="290" y="120"]
 [faceSet chara="nanami" parts="cos" id="normal" label="通常"]
 [faceSet chara="nanami" parts="me" id="normal" label="普通"]
@@ -654,13 +681,16 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['nanami']" name="nanami" part="me" s="6" id="odoroki"]
 
 
+; ココノノ
 [charaSet id="10" name="coconono" w="455" y="170"]
 [faceSet chara="coconono" parts="cos" id="normal" label="通常"]
 [faceSet chara="coconono" parts="me" id="normal" label="普通"]
+; [faceSet chara="coconono" parts="me" id="hannme" label="半目"]
 [faceSet chara="coconono" parts="me" id="toziru" label="閉じる
 [faceSet chara="coconono" parts="me" id="warau" label="笑う"]
 [faceSet chara="coconono" parts="kuti" id="normal" label="普通"]
 [faceSet chara="coconono" parts="kuti" id="hiraku" label="開く"]
+; [faceSet chara="coconono" parts="kuti" id="toziru" label="閉じる"]
 [faceSet chara="coconono" parts="kuti" id="coco_hiraku" label="ココ・開く"]
 [faceSet chara="coconono" parts="kuti" id="nono_hiraku" label="ノノ・開く"]
 [faceSet chara="coconono" parts="kuti" id="warau" label="笑う"]
@@ -670,6 +700,7 @@ tf.me = [
 [faceSet chara="coconono" parts="mayu" id="warau" label="笑う"]
 [faceSet chara="coconono" parts="mayu" id="komaru" label="困る"]
 [faceSet chara="coconono" parts="op" id="ase" label="汗"]
+; [faceSet chara="coconono" parts="op" id="naku" label="泣く"]
 [iscript]
 tf.me = [
 ["10%", 1],
@@ -687,6 +718,7 @@ tf.me = [
 [fa_animation anime="&tf.me" w="&sf.charaW['coconono']" name="coconono" part="me" s="7" id="normal"]
 
 
+; モブ
 [charaSet id="11" name="mob" w="564" y="20"]
 [faceSet chara="mob" parts="cos" id="women" label="女性"]
 [faceSet chara="mob" parts="cos" id="men" label="男性"]
@@ -695,12 +727,15 @@ tf.me = [
 [faceSet chara="mob" parts="cos" id="bad2" label="不良２人"]
 [faceSet chara="mob" parts="cos" id="girl" label="女の子"]
 
+; モブ2（モブ並べて表示させること想定してなかった…）
 [charaSet id="12" name="mob2" w="564" y="20"]
 [faceSet chara="mob2" parts="cos" id="boy" label="男の子"]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [return]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

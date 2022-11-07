@@ -1,13 +1,23 @@
-[_tb_system_call  storage="system/_scene1.ks"  ]
+[_tb_system_call storage=system/_scene1.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [system_load]
 
 *debug
 [showmenubutton]
+; [eval exp="f.sugasato = 'ririna'"]
+; [eval exp="sf.chapter_end['ED1'] = true"]
+; [eval exp="sf.chapter_end['ED2'] = true"]
+; [eval exp="f.root_dog = 3"]
+; [eval exp="f.memoryMode = true"]
 
+; [jump storage="title_screen.ks"]
+; [jump storage="ex_omake.ks"]
 
 [jump storage="mainStory01.ks"]
+; [jump storage="subStory04.ks"]
 [s]
 
 
@@ -174,16 +184,19 @@ test end[pr]
 
 [bgm id="battle" mode="play"]
 
+; 対戦演出開始
 [battle_set mode="left" id="yamato" name="桐生 ヤマト" text="手加減しないからな"]
 [battle_set mode="right" id="honoka2" name="中学生" text="僕の智略を見せてあげよう"]
 [battle_cutin]
 
+; キャラ表示
 [chara_img type="heroine" name="honoka" mode="show" time="0"]
 [message_day mode="show" day="月" text="住宅街" time="0"]
 [message time="0" mode="show"]
 
 [bgm mode="end"]
 
+; 対戦演出おわり
 [battle_cutin_off]
 
 [bgm id="nichijou_a" mode="play"]
@@ -198,10 +211,12 @@ test end[pr]
 
 
 
+; 曜日カットインテスト
 [weekCutIn title="月曜日" text="Monday"]
 [chara_img mode="face" name="honoka" me="normal"]
 [weekCutOut]
 
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

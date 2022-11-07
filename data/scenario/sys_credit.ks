@@ -1,6 +1,9 @@
-[_tb_system_call  storage="system/_sys_credit.ks"  ]
+[_tb_system_call storage=system/_sys_credit.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; スタッフロール
 
 [image layer="base" storage="../bgimage/sys_title.jpg"]
 
@@ -12,6 +15,7 @@
 
 [bgm id="ending" mode="play"]
 
+; 流れる
 [anim name="credit_text" top="-=2380" time="22000" effect="linear"]
 
 [glyph line="none.gif" fix="true" left="980" top="540"]
@@ -24,4 +28,5 @@
 [wait time="10"]
 
 [return]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

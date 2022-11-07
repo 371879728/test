@@ -1,12 +1,17 @@
-[_tb_system_call  storage="system/_mainStoryRootB02.ks"  ]
+[_tb_system_call storage=system/_mainStoryRootB02.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -23,6 +28,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [weekCutIn title="金曜日" text="Tuesday"]
@@ -453,11 +459,15 @@
 [bgm mode="end"]
 
 
+; 回想終了
 [memory_end chapter="root-D02-1"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -473,6 +483,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [window_all_hide]
@@ -1149,6 +1160,7 @@
 「でも桐生くんはかっこいい系だと思うよ。[r]
 手も大きくて好き～」[pr]
 
+; 人型に戻る
 [chara_img name="yamato_dog" mode="face" mayu="kiri" me="hannme" ase="true"]
 [message_name name="桐生 ヤマト" mode="show"]
 「…………」[pr]
@@ -1345,14 +1357,19 @@
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eval exp="sf.chapter_end['ED2'] = true"]
 [eval exp="sf.eventcg_view['14'] = true"]
 
+; オート解除
 [autostop]
 
+; スキップ中はスキップ
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1373,6 +1390,7 @@ tf.is_skip = TG.stat.is_skip;
 [call storage="sys_credit.ks"]
 [endif]
 
+; スキップ解除
 [cancelskip]
 
 [if exp="tf.is_skip == true"]
@@ -1396,6 +1414,7 @@ ED2「あなただから」
 
 [l]
 
+; 回想終了
 [memory_end chapter="root-D02-2"]
 
 [bgm mode="end" time="1500"]
@@ -1410,4 +1429,5 @@ ED2「あなただから」
 [eval exp="tf.title_fade = true"]
 [jump storage="title_screen.ks" target="*back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

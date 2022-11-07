@@ -1,13 +1,19 @@
-[_tb_system_call  storage="system/_ex_omake.ks"  ]
-*start
-[tb_start_tyrano_code  ]
+[_tb_system_call storage=system/_ex_omake.ks]
 
+*start
+
+[tb_start_tyrano_code]
+
+; ▼mask on
 [mask cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 
+; ◆システムメニュー非表示
 [hidemenubutton]
 
+; ◆戻って来た
 [if exp="f.omake_back"]
 
+; スキップ解除
 [cancelskip]
 
 [bgm mode="end"]
@@ -27,8 +33,10 @@
 [mask cond="f.ex_subpage_fade != false" time="300"]
 [endif]
 
+; バックログ記録停止
 [nolog]
 
+; バックログ削除
 [eval exp="tf.system.backlog = []"]
 
 [cm]
@@ -38,6 +46,7 @@
 *back
 [image layer="0" name="all_hide" storage="../image/extra/ttl_extra.png" left="15" top="12" visible="true"]
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
 
@@ -77,16 +86,19 @@
 
 [eval exp="f.omake_back = false"]
 
+; ▼mask_off
 [mask_off cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = false"]
 [eval exp="f.ex_fade = true"]
 [s]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="ex_index.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

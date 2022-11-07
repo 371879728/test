@@ -1,6 +1,8 @@
-[_tb_system_call  storage="system/_subStory02.ks"  ]
+[_tb_system_call storage=system/_subStory02.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -19,9 +21,11 @@
 
 [sceneTitle text="ED2後日談「“好き”の伝え方」"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [bgm id="nichijou_d" mode="play"]
 
@@ -527,12 +531,15 @@
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [cancelskip]
 [eval exp="f.omake_back = true"]
 [jump storage="ex_omake.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

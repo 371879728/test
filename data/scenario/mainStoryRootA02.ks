@@ -1,12 +1,17 @@
-[_tb_system_call  storage="system/_mainStoryRootA02.ks"  ]
+[_tb_system_call storage=system/_mainStoryRootA02.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -23,6 +28,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [weekCutIn title="金曜日" text="Friday"]
@@ -328,11 +334,15 @@
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="root-P02-1"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -350,6 +360,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [window_all_hide]
@@ -1138,14 +1149,18 @@ tf.is_skip = TG.stat.is_skip;
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eval exp="sf.chapter_end['ED1'] = true"]
 [eval exp="sf.eventcg_view['9'] = true"]
 
+; オート解除
 [autostop]
 
+; スキップ中はスキップ
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1166,6 +1181,7 @@ tf.is_skip = TG.stat.is_skip;
 [call storage="sys_credit.ks"]
 [endif]
 
+; スキップ解除
 [cancelskip]
 
 [if exp="tf.is_skip == true"]
@@ -1189,6 +1205,7 @@ ED1「いつまでも一緒に」
 
 [l]
 
+; 回想終了
 [memory_end chapter="root-P02-2"]
 
 [bgm mode="end" time="1500"]
@@ -1203,4 +1220,5 @@ ED1「いつまでも一緒に」
 [eval exp="tf.title_fade = true"]
 [jump storage="title_screen.ks" target="*back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

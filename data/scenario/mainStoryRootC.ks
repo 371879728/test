@@ -1,13 +1,18 @@
-[_tb_system_call  storage="system/_mainStoryRootC.ks"  ]
+[_tb_system_call storage=system/_mainStoryRootC.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [message_name mode="hide"]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -25,6 +30,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [weekCutIn title="木曜日" text="Thursday"]
 [chara_img mode="show" name="haruo" cos="jacket" time="0" kuti="hohoemu"]
@@ -195,6 +201,7 @@
 １人ホテルに残され、スマホを取り出す。[ls][r]
 桐生くんは、今はちょうどお昼休憩の時間だろう。[pr]
 
+; ヤマトに写真送る
 
 [lineMessageStart img="../image/line_message01.png"]
 [lineMessageSet id="honoka" mode="left" name="主人公" image="line_photo_ed3.png" text="【写真】" click="false"]
@@ -210,6 +217,7 @@
 [lineMessageSet id="honoka" mode="left" name="主人公" image="line_stamp02.png" text="【スタンプ】ひゃっほー"]
 [lineMessageEnd]
 
+; おわり
 
 [message_day mode="show" day="木" text="ホテル" time="0"]
 [chara_img type="heroine" name="honoka" cos="shihuku" mode="show" time="300" wait="false" lost="true"]
@@ -400,16 +408,20 @@
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [tb_start_tyrano_code]
 [eval exp="sf.chapter_end['ED3'] = true"]
 [eval exp="sf.eventcg_view['16'] = true"]
 
+; オート解除
 [autostop]
 
+; スキップ中はスキップ
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -430,6 +442,7 @@ tf.is_skip = TG.stat.is_skip;
 [call storage="sys_credit.ks"]
 [endif]
 
+; スキップ解除
 [cancelskip]
 
 [if exp="tf.is_skip == true"]
@@ -453,6 +466,7 @@ ED3「兄妹」
 
 [l]
 
+; 回想終了
 [memory_end chapter="root-C01-1"]
 
 [bgm mode="end" time="1500"]
@@ -466,4 +480,5 @@ ED3「兄妹」
 
 [eval exp="tf.title_fade = true"]
 [jump storage="title_screen.ks" target="*back"]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

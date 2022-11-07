@@ -1,12 +1,17 @@
-[_tb_system_call  storage="system/_mainStory04.ks"  ]
+[_tb_system_call storage=system/_mainStory04.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -23,6 +28,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [weekCutIn title="木曜日" text="Thursday"]
 [chara_img type="heroine" name="honoka" mode="show" cos="jersey" time="0"]
@@ -452,11 +458,15 @@
 他愛もない言葉を交わしながら、[r]
 下位棟側のグラウンドに向かった。[pr]
 
+; 回想終了
 [memory_end chapter="ch04-1"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -473,6 +483,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [bgm mode="end"]
@@ -586,11 +597,14 @@
 [message_name name="桐生ヤマト"]
 「なんだそれ」[pr]
 
+; 回想終了
 [memory_end chapter="ch04-2"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [if exp="f.root_people > f.root_dog"]
 [jump storage="mainStoryRootA01.ks"]
@@ -600,4 +614,5 @@
 [endif]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

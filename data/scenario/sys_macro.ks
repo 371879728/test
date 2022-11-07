@@ -1,24 +1,34 @@
-[_tb_system_call  storage="system/_sys_macro.ks"  ]
+[_tb_system_call storage=system/_sys_macro.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆タグ省略形マクロ
 [macro name="posi"]
 [position * frame="none" opacity="0" width="&sf.windowW" height="&sf.windowH"]
 [endmacro]
 
+; --------------------------------------
 
+; ◆メッセージレイヤを表示しつつカレントレイヤにする
 [macro name="message_current"]
 [position layer="%layer" frame="none" width="%width| +sf.windowW" height="%height| +sf.windowH" margint="%margint|0" left="%left|0" top="%top|0" opacity="0" visible="true"]
 [layopt layer="&mp.layer" opacity="255" left="0" top="0" visible="true"]
 [current layer="&mp.layer"][er]
 [endmacro]
 
+; --------------------------------------
 
+; ◆タイトル設定マクロ
 [macro name="sceneTitle"]
 [eval exp="f.sceneTitle = mp.text"]
 [endmacro]
 
+; --------------------------------------
 
+; 効果音
 [macro name="playseEx"]
+; スキップ中は鳴らさない
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -28,6 +38,7 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 [endmacro]
 
+; 効果音停止
 [macro name="stopseEx"]
 [if exp="mp.mode == 'fadeout'"]
 [fadeoutse time="500"]
@@ -37,16 +48,24 @@ tf.is_skip = TG.stat.is_skip;
 [stopse]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
-*message
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+; =========================================================================
+
+*message
+
+[tb_start_tyrano_code]
+; ◆メッセージウィンドウ各種
+
+; ▼曜日表示
 [macro name="message_day"]
 [eval exp="tf.day = mp.day"]
 [eval exp="tf.text = mp.text"]
 
 [eval cond="tf.text == '浅利家・ほのかの部屋'" exp="tf.text = sf.myozi + '家・' + sf.name + 'の部屋'"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -62,14 +81,18 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 [endif]
 
+; ---------------------------------------------
 
+; 表示
 [if exp="mp.mode == 'show'"]
 [layopt layer="&sf.layMessage" visible="true"]
 
+; スキップ中の処理
 [if exp="tf.messageDayFadeTime == 0"]
 [image layer="&sf.layMessage" storage="../image/frame_day.png" name="message_day" top="0" left="0"]
 [message_current layer="message2" top="-15" left="10"]
 
+;通常時の処理
 [else]
 [image layer="&sf.layMessage" storage="../image/frame_day.png" name="message_day" top="-40" left="0"]
 [message_current layer="message2" top="-55" left="10"]
@@ -80,6 +103,7 @@ $('.message2_fore .message_inner').css({"opacity": 0});
 [endscript]
 [endif]
 
+; 文字表示
 [iscript]
 tf.system.backlog.push('<p class="h2">' + tf.day + '曜日　' + tf.text + '</p>');
 [endscript]
@@ -108,7 +132,9 @@ $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 
 [current layer="message0"][er]
 
+; ---------------------------------------------
 
+; 更新
 [elsif exp="mp.mode == 'set'"]
 
 [current layer="message2"][er]
@@ -124,14 +150,18 @@ $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 
 [current layer="message0"][er]
 
+; ---------------------------------------------
 
+; 非表示
 [else]
 
+; スキップ時
 [if exp="tf.messageDayFadeTime == 0"]
 [current layer="message2"][er]
 [free layer="&sf.layMessage" name="message_day"]
 [layopt layer="message2" visible="false"]
 
+; 通常時
 [else]
 [anim opacity="0" name="message_day" top="-=40" time="&tf.messageDayFadeTime / 2"]
 [anim opacity="0" layer="message2" top="-=40" time="&tf.messageDayFadeTime / 2"]
@@ -149,12 +179,15 @@ $('.message2_fore .message_inner').css({"opacity": 1});
 [endscript]
 [endmacro]
 
+; -------------------------------------------------------------------------
 
+; ▼メッセージウィンドウ
 [macro name="message"]
 [eval exp="tf.wait = mp.wait"]
 [eval exp="tf.mode = mp.mode"]
 [eval exp="tf.sysbtn = mp.sysbtn"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -172,6 +205,7 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 
 
+; 表示
 [if exp="tf.mode == 'show'"]
 
 [free layer="&sf.layMessage" name="message_window"]
@@ -202,12 +236,15 @@ $('.' + sf.layMessage + '_fore').css('z-index', sf.zindexMessage);
 
 [glyph line="nextpage.gif" fix="true" left="900" top="520"]
 
+; ウィンドウ非表示ボタン
 [if exp="tf.sysbtn != 'false'"]
 [showsystembutton]
 [endif]
 
+; ---------------------------------------------
 
 
+; ノーフェード表示
 [elsif exp="tf.mode == 'set'"]
 [layopt layer="&sf.layMessage" visible="true"]
 
@@ -220,13 +257,17 @@ $('.message0_fore').css('z-index', 3000);
 
 [glyph line="nextpage.gif" fix="true" left="900" top="520"]
 
+; ウィンドウ非表示ボタン
 [if exp="tf.sysbtn != 'false'"]
 [showsystembutton]
 [endif]
 
+; ---------------------------------------------
 
+; 非表示
 [else]
 
+; ウィンドウ非表示ボタン
 [hidesystembutton]
 
 [if exp="tf.messageFadeTime > 0"]
@@ -243,6 +284,7 @@ $('.message0_fore').css('z-index', 3000);
 [free layer="&sf.layMessage" name="message_name"]
 [freeimage layer="&sf.layMessage"]
 
+; 次のためにopacityを戻しておく
 [if exp="tf.messageFadeTime > 0"]
 [anim name="message_window" opacity="255" time="10"]
 [anim name="message_name" opacity="255" time="10"]
@@ -267,7 +309,9 @@ $('.message_close_btn').css({"display": "none"});
 [endmacro]
 
 
+; --------------------------------------
 
+; ▼ネームウィンドウ
 [macro name="message_name"]
 
 [eval exp="tf.wait = mp.wait"]
@@ -296,6 +340,7 @@ $('.message_close_btn').css({"display": "none"});
 
 [image layer="&sf.layMessage" storage="&'../image/name_icon_' + tf.icon + '.png'" name="name_icon" top="&sf.setNameY + 15" left="&sf.setNameX + 62"]
 
+; 名前セット
 [layopt layer="&sf.layMessage" visible="true"]
 [message_current layer="message1" top="&sf.setNameY - 10" left="&sf.setNameX + 76"]
 [current layer="message1"][er]
@@ -317,6 +362,7 @@ $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 
 [current layer="message0"][er]
 
+; 非表示
 [elsif exp="mp.mode == 'hide'"]
 
 [current layer="message1"][er]
@@ -325,6 +371,7 @@ $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 [wait time="10"]
 [current layer="message0"][er]
 
+; 更新
 [else]
 [free layer="&sf.layMessage" name="name_icon"]
 [image layer="&sf.layMessage" storage="&'../image/name_icon_' + tf.icon + '.png'" name="name_icon" top="&sf.setNameY + 15" left="&sf.setNameX + 62"]
@@ -350,9 +397,15 @@ tf.system.backlog.push("【" + tf.name + "】");
 [endmacro]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+; =========================================================================
+
 *text
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆テキスト補助
 [macro name="浅利"]
 [emb exp="sf.myozi"]
 [endmacro]
@@ -377,6 +430,7 @@ tf.system.backlog.push("<hr>");
 [macro name="font_color"]
 [font size="%size|24" color="%color|0xffffff" edge="%edge|none" bold="%bold|false"]
 
+; 既読色の変更。これを記述すると直後のmaskのアニメーションが飛ぶ…？waitで回避する。
 [config_record_label color="%color|0xffffff"]
 [wait cond="mp.wait > 0" time="%wait"]
 [endmacro]
@@ -386,9 +440,15 @@ tf.system.backlog.push("<hr>");
 [wait cond="mp.wait > 0" time="%wait"]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *music
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [macro name="bgm"]
 [eval exp="tf.bgmFadeTime = 1500"]
 [eval cond="mp.time >= 0" exp="tf.bgmFadeTime = mp.time"]
@@ -404,13 +464,21 @@ tf.system.backlog.push("<hr>");
 [playbgm storage="&mp.id + '.ogg'" click="true"]
 [endif]
 [endmacro]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *weekCutIn
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆曜日カットイン開始マクロ
 [macro name="weekCutIn"]
 [eval exp="tf.title = mp.title"]
 [eval exp="tf.text = mp.text"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -421,6 +489,7 @@ tf.is_skip = TG.stat.is_skip;
 [eval exp="tf.dayCutinFadeTime = 800"]
 [endif]
 
+; ---------------------------------------------
 
 [if exp="tf.is_skip == true"]
 [message_current layer="message2" left="0" top="190"]
@@ -429,11 +498,13 @@ tf.is_skip = TG.stat.is_skip;
 
 [mask effect="slideInDown" time="&tf.dayCutinFadeTime" folder="bgimage" graphic="sys_back_nobar.jpg"]
 [message_current layer="message2" left="30" top="190"]
+; [anim layer="message2" opacity="0" time="0"][wa]
 [iscript]
 $('.message2_fore .message_inner').css({"opacity": 0});
 [endscript]
 [endif]
 
+; 文字表示
 [nolog]
 [nowait]
 [font_color size="50" color="0xffffff"]
@@ -454,21 +525,26 @@ $('.message2_fore img').css({ "margin-top":30 });
 tf.system.backlog.push('<p class="h1">' + tf.title + '</p>');
 [endscript]
 
+; スキップ中はフェードなし
 [if exp="tf.is_skip == true"]
 [mask time="&tf.dayCutinFadeTime" folder="bgimage" graphic="sys_back_nobar.jpg"]
 [layopt layer="message2" visible="true"]
 [wait time="100"]
 [else]
 
+; 通常時
 [anim layer="message2" opacity="255" left="-= 30" time="&tf.dayCutinFadeTime"][wa]
 [wait time="1200"]
 [endif]
 
 [endmacro]
 
+; --------------------------------------
 
+; ◆曜日カットイン終了マクロ
 [macro name="weekCutOut"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -479,15 +555,18 @@ tf.is_skip = TG.stat.is_skip;
 [eval exp="tf.dayCutinFadeTime = 600"]
 [endif]
 
+; スキップ時
 [if exp="tf.is_skip == true"]
 [mask_off effect="fadeOut" time="&tf.dayCutinFadeTime"]
 
+; 通常時
 [else]
 [anim layer="message2" opacity="0" time="&tf.dayCutinFadeTime"][wa]
 [mask_off effect="fadeOut" time="&tf.dayCutinFadeTime"]
 [wait time="300"]
 [endif]
 
+; 元の状態に戻す
 [position layer="message2" visible="false"]
 [iscript]
 $(".message2_fore").removeAttr('style');
@@ -500,12 +579,20 @@ $('.message2_fore img').removeAttr('style');
 [endmacro]
 
 
-[_tb_end_tyrano_code  ]
-*eyecatch
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+
+; =========================================================================
+
+*eyecatch
+
+[tb_start_tyrano_code]
+
+; ◆アイキャッチ
 [macro name="eyecatch"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -521,9 +608,12 @@ tf.is_skip = TG.stat.is_skip;
 
 [endmacro]
 
+; --------------------------------------
 
+; ◆アイキャッチオフ
 [macro name="eyecatch_off"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -539,16 +629,30 @@ tf.is_skip = TG.stat.is_skip;
 [wait time="10"]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *battle
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆対戦演出
+; [battle_set mode="left" id="honoka" name="浅利ほのか" text="改行したいときは<br>でいい"]
+; [battle_set mode="right" id="honoka2" name="浅利ほのか" text="戦闘開始時の台詞"]
+; [battle_cutin]
+; 戻った時の画面をセット
+; [battle_cutin_off]
 
 [eval exp="f.battleImg = []"]
 [eval exp="f.battleImgText = []"]
 [eval exp="f.battleName = []"]
 [eval exp="f.battleText = []"]
 
+; --------------------------------------
 
+; ▼セット
 [macro name="battle_set"]
 [eval exp="tf.id = mp.id"]
 [eval exp="tf.name = mp.name"]
@@ -563,13 +667,17 @@ tf.is_skip = TG.stat.is_skip;
 [hidemenubutton]
 [hidesystembutton]
 
+; バックログ記録停止
 [nolog]
 [endmacro]
 
+; --------------------------------------
 
 
+; ▼カットイン
 [macro name="battle_cutin"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -582,6 +690,7 @@ tf.is_skip = TG.stat.is_skip;
 
 [layopt layer="&sf.layFree" visible="true"]
 
+; 〇背景～立ち絵
 [if exp="tf.is_skip == true"]
 [eval exp="tf.charaLeft = 0"]
 [eval exp="tf.charaTextLeft = 0"]
@@ -610,6 +719,7 @@ $('.battle_chara_text_left').css({"z-index": 10});
 $('.battle_chara_text_right').css({"z-index": 10});
 [endscript]
 
+; 通常時のみアニメーション表示
 [if exp="tf.is_skip == true"]
 [image layer="&sf.layFree" name="battle_bar_top" storage="../image/battle_bar.png" top="0"]
 [image layer="&sf.layFree" name="battle_bar_bottom" storage="../image/battle_bar.png" top="536"]
@@ -645,6 +755,7 @@ $('.battle_chara_text_right').css({"opacity": 0});
 [anim name="battle_chara_text_right" opacity="255" left="-=100" time="300"]
 [endif]
 
+; 〇台詞
 [if exp="tf.is_skip == true"]
 [eval exp="tf.messageImgLeft = 290"]
 [eval exp="tf.messageImgRight = 350"]
@@ -665,6 +776,7 @@ $('.battle_message_left').css({"z-index": 10});
 $('.battle_message_right').css({"z-index": 10});
 [endscript]
 
+; 通常時のみアニメーション表示
 [if exp="tf.is_skip != true"]
 [iscript]
 $('.battle_message_left').css({"opacity": 0});
@@ -696,6 +808,7 @@ $('.message3_fore .message_inner').css({"opacity": 0});
 $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 [endscript]
 
+; 通常時のみアニメーション表示
 [if exp="tf.is_skip != true"]
 [anim name="battle_message_left" opacity="255" left="+=50" time="400"]
 [anim name="battle_message_right" opacity="255" left="-=50" time="400"]
@@ -706,16 +819,19 @@ $('.message_outer').css('background-color', 'rgba(0, 0, 0, 0)');
 [wait time="600"]
 [endif]
 
+; 〇VS
 [image layer="&sf.layFree" name="battle_vs" storage="../image/battle_vs.png" top="235" left="460"]
 
 [iscript]
 $('.battle_vs').css({"z-index": 12});
 [endscript]
 
+; 通常時のみ
 [if exp="tf.is_skip != true"]
 [quake count="2" hmax="10" vmax="0" time="200"]
 [endif]
 
+; 〇クリック待ち
 [glyph line="none.gif" fix="true" left="980" top="540"]
 
 [if exp="tf.is_skip == true"]
@@ -727,26 +843,32 @@ $('.battle_vs').css({"z-index": 12});
 [hidemenubutton]
 [endif]
 
+; 〇裏で全部リセット
 [layopt layer="message2" visible="false"]
 [layopt layer="message3" visible="false"]
 [freeimage layer="&sf.layFree"]
 [image layer="&sf.layFree" name="battle_mask_bg" storage="../bgimage/sys_back_nobar.jpg"]
 
+; 通常時のみ
 [if exp="tf.is_skip != true"]
 [mask_off time="10"]
 [wait time="100"]
 
+; 〇画像フェードイン
 [image layer="&sf.layFree" name="battle_mask_img" storage="../image/battle_ry.png" top="&235 - 30" left="460"]
 
+; [anim name="battle_mask_img" opacity="0" time="0"][wa]
 [iscript]
 $('.battle_mask_img').css({"opacity": 0});
 [endscript]
 
 [anim name="battle_mask_img" effect="easeOutExpo" opacity="255" top="+=30" time="200"][wa]
 
+; 〇クリック待ち
 [glyph line="none.gif" fix="true" left="980" top="540"]
 [message_current layer="message0"][p]
 
+; 〇画像フェードアウト
 [anim name="battle_mask_img" opacity="0" time="200"][wa]
 
 [mask time="10" folder="bgimage" graphic="sys_back_nobar.jpg"]
@@ -758,8 +880,11 @@ $('.battle_mask_img').css({"opacity": 0});
 [freeimage layer="&sf.layFree"]
 [endmacro]
 
+; --------------------------------------
 
+; ▼カットイン終わり
 [macro name="battle_cutin_off"]
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -771,11 +896,19 @@ tf.is_skip = TG.stat.is_skip;
 
 [endmacro]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *chara
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆立ち絵まとめ
 [macro name="chara_img"]
 
+; エクストラ用
 [iscript]
 sf.ex_chara_view[mp.name] = true;
 
@@ -800,6 +933,7 @@ if(mp.badge != null) sf.ex_chara_view_p[mp.name]['op']['badge']["view"] = true;
 if(mp.lost != null) sf.ex_chara_view_p[mp.name]['op']['lost']["view"] = true;
 [endscript]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -815,14 +949,18 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 [endif]
 
+; ▼変数代入
 [eval exp="tf.left = mp.left"]
 [eval exp="tf.posi = mp.posi"]
 [eval exp="tf.wait = mp.wait"]
 
+; ▽位置調整用
+; 縦
 [eval exp="tf.top = sf.charaY[mp.name]"]
 [if exp="mp.top > 0"][eval exp="tf.top = mp.top"]
 [elsif exp="mp.top == 0"][eval exp="tf.top = '0'"][endif]
 
+; 横
 [eval cond="tf.left == null && tf.posi == null" exp="tf.posi = 'center'"]
 
 [eval exp="tf.posi_center = (sf.windowW / 2) - (sf.charaW[mp.name] / 2)"]
@@ -838,12 +976,15 @@ tf.is_skip = TG.stat.is_skip;
 [eval cond="tf.left != null" exp="tf.left = tf.left"]
 
 
+; レイヤ
 [eval cond="mp.type == 'heroine'" exp="tf.layer = sf.layHeroine"]
 [eval cond="mp.type != 'heroine'" exp="tf.layer = sf.layChara"]
 [eval cond="mp.layer != null" exp="tf.layer = mp.layer"]
 
+; ▼表示
 [if exp="mp.mode == 'show'"]
 
+; ヒロイン位置
 [if exp="mp.type == 'heroine'"]
 [iscript]
 $('.' + sf.layHeroine + '_fore').css('z-index', sf.zindexHeroine);
@@ -851,16 +992,20 @@ $('.' + sf.layHeroine + '_fore').css('z-index', sf.zindexHeroine);
 
 [fa_chara_show layer="&tf.layer" name="%name" top="%top|340" left="%left|-40" cos="%cos|normal" me="%me|normal" kuti="%kuti|normal" mayu="%mayu|normal" ase="%ase|false" naku="%naku|false" badge="%badge|false" lost="%lost|false" tere="%tere|false" aozame="%aozame|false" kega="%kega|false" wait="%wait|true" time="&tf.battleFadeTime"]
 
+; 通常位置
 [else]
 [fa_chara_show layer="&tf.layer" name="%name" top="&tf.top" left="&tf.left" cos="%cos|normal" me="%me|normal" kuti="%kuti|normal" mayu="%mayu|normal" ase="%ase|false" naku="%naku|false" tere="%tere|false" kega="%kega|false" badge="%badge|false" lost="%lost|false" wait="%wait|true" time="&tf.battleFadeTime"]
 [endif]
 
+; ▼位置変更
 [elsif exp="mp.mode == 'move'"]
 [chara_move name="%name" anim="true" left="&tf.left" time="&tf.battleFadeTime" wait="%wait|true"]
 
+; ▼表情変更
 [elsif exp="mp.mode == 'face'"]
 [fa_chara_part layer="&tf.layer" * ]
 
+; ▼１人非表示
 [elsif exp="mp.mode == 'hide'"]
 
 [if exp="mp.type == 'heroine'"]
@@ -881,6 +1026,7 @@ $('.' + sf.layHeroine + '_fore').css('z-index', sf.zindexHeroine);
 
 [endif]
 
+; ▼全て非表示
 [elsif exp="mp.mode == 'hide_all'"]
 
 [if exp="tf.battleFadeTime > 10"]
@@ -893,14 +1039,23 @@ $('.' + sf.layHeroine + '_fore').css('z-index', sf.zindexHeroine);
 [freeimage layer="&sf.layChara"]
 [endif]
 
+; スキップ時処理落ち防止
 [wait cond="tf.is_skip == true" time="20"]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *cutin
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆キャラカットイン
 [macro name="cutin"]
 
+; スキップ中はフェードなし
 [iscript]
 $('.system-btn-area').css({"opacity": 0});
 tf.is_skip = TG.stat.is_skip;
@@ -945,16 +1100,24 @@ $('.' + sf.layFree + '_fore').css('z-index', 13);
 $('.system-btn-area').css({"opacity": 1});
 [endscript]
 [endmacro]
-[_tb_end_tyrano_code  ]
-*image
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+
+; =========================================================================
+
+*image
+
+[tb_start_tyrano_code]
+
+; ◆スチル
 [macro name="still"]
 [eval exp="tf.num = mp.num + ''"]
 [eval exp="tf.still = 'event/still' + tf.num + '.jpg'"]
 [eval exp="tf.mode = mp.mode"]
 [eval exp="tf.black = mp.black"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -970,6 +1133,7 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 [endif]
 
+; 表示
 [if exp="mp.mode == 'start'"]
 
 [chara_img mode="hide_all" time="300"]
@@ -1002,10 +1166,12 @@ tf.is_skip = TG.stat.is_skip;
 [showsystembutton]
 [endif]
 
+; 切り替え
 [elsif exp="mp.mode == 'change'"]
 [eval exp="sf.eventcg_view[tf.num] = true"]
 [bgimg storage="&tf.still" time="400"]
 
+; 終了
 [else exp="mp.mode == 'end'"]
 [bgimg storage="%storage" time="600"]
 [message mode="set"]
@@ -1014,8 +1180,11 @@ tf.is_skip = TG.stat.is_skip;
 
 [endmacro]
 
+; --------------------------------------
 
+; ◆背景画像変更
 [macro name="bgimg"]
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1038,6 +1207,7 @@ tf.is_skip = TG.stat.is_skip;
 [endif]
 [endmacro]
 
+; --------------------------------------
 
 [macro name="wait_skip"]
 [iscript]
@@ -1046,7 +1216,10 @@ tf.is_skip = TG.stat.is_skip;
 [wait cond="tf.is_skip != true" time="%time|200"]
 [endmacro]
 
+; --------------------------------------
 
+; ◆メッセージウィンドウ系を非表示
+; スキップ中はフェードなし
 [macro name="window_all_hide"]
 [message_name mode="hide"]
 [message_day mode="hide" wait="false" time="%time"]
@@ -1054,7 +1227,9 @@ tf.is_skip = TG.stat.is_skip;
 [message mode="hide" time="%time"]
 [endmacro]
 
+; --------------------------------------
 
+; ◆前景レイヤの解放
 [macro name="charaFreeLayer"]
 [iscript]
 var num;
@@ -1066,7 +1241,10 @@ tyrano.plugin.kag.ftag.startTag("freeimage",{"layer":num});
 [endscript]
 [endmacro]
 
+; --------------------------------------
 
+; ◆freeレイヤーの解放
+; サブルーチンに入った直後などに使う。
 [macro name="freeLayer"]
 [iscript]
 var fl = TYRANO.kag.layer.getFreeLayer();
@@ -1084,6 +1262,7 @@ fl.empty();
 }
 [endscript]
 
+; roleボタンは強制的にfixなので、fixレイヤを解放
 [clearfix]
 
 [iscript]
@@ -1092,10 +1271,18 @@ $('.layer_fore').css("display", "none");
 
 [endmacro]
 
-[_tb_end_tyrano_code  ]
-*config
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+
+; =========================================================================
+
+*config
+
+[tb_start_tyrano_code]
+; ◆コンフィグ用
+
+; オンオフボタン
 [macro name="onoffBtn"]
 [eval exp="tf.offX = +mp.x + 95"]
 
@@ -1108,7 +1295,9 @@ $('.layer_fore').css("display", "none");
 [endif]
 [endmacro]
 
+; --------------------------------------
 
+; ５つボタン
 [macro name="speedChangeBtn"]
 [if exp="mp.set == mp.speed"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="&'../image/config/btn_num0' + mp.num + '_on.png'" name="allHide" x="%x" y="%y" target="%target" exp="&'tf.speed =' + mp.speed"]
@@ -1117,7 +1306,9 @@ $('.layer_fore').css("display", "none");
 [endif]
 [endmacro]
 
+; --------------------------------------
 
+; スライダーボタン設置
 [macro name="slider"]
 [iscript]
 var num;
@@ -1143,9 +1334,20 @@ tyrano.plugin.kag.ftag.startTag("button",{
 [endmacro]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *extra
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; HTMLの画像にボタン機能を持たせるマクロ
+; [html]
+; <div id="button_ボタンの名前">ボタンの画像</div>
+; [endhtml]
+; [マクロの名前 id="button_ボタンの名前" storage="ジャンプ先シナリオ名.ks" target="*ジャンプ先ラベル名"]
 [macro name="htmlBtn"]
 [iscript]
 $("#"+mp.id).click(function () {
@@ -1153,9 +1355,16 @@ TG.kag.ftag.startTag("jump",{storage:mp.storage, target:mp.target});
 });
 [endscript]
 [endmacro]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *memory
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想終了用
 [macro name="memory_end"]
 [eval cond="mp.chapter != null" exp="sf.chapter[mp.chapter] = true"]
 
@@ -1168,11 +1377,19 @@ TG.kag.ftag.startTag("jump",{storage:mp.storage, target:mp.target});
 [endif]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
+; =========================================================================
+
 *lineMessage
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 準備
 [macro name="lineMessageStart"]
 
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1182,8 +1399,10 @@ tf.is_skip = TG.stat.is_skip;
 [hidemenubutton]
 [hidesystembutton]
 
+; 画像準備
 [image storage="../bgimage/black.jpg" layer="&sf.layFree" name="line_bg" visible="true"]
 
+; 表示
 [if exp="tf.is_skip == true"]
 [image storage="%img" layer="&sf.layFree" top="25" left="380" name="line_message" visible="true"]
 [iscript]
@@ -1193,6 +1412,8 @@ $('.line_bg').css({"opacity": 0.4});
 [else]
 [image storage="%img" layer="&sf.layFree" top="-80" left="380" name="line_message" visible="true"]
 
+; [anim name="line_bg" opacity="0" time="0"][wa]
+; [anim name="line_message" opacity="0" time="0"][wa]
 [iscript]
 $('.line_bg').css({"opacity": 0});
 $('.line_message').css({"opacity": 0});
@@ -1224,6 +1445,7 @@ lineMessage.reset();
 [endmacro]
 
 
+; 台詞セット
 [macro name="lineMessageSet"]
 [eval exp="tf.name = mp.name"]
 [eval cond="tf.name == '主人公'" exp="tf.name = sf.myozi + sf.name"]
@@ -1247,6 +1469,7 @@ tf.system.backlog.push("<hr>");
 [wait time="230"]
 [endmacro]
 
+; 終了
 [macro name="lineMessageEnd"]
 [iscript]
 tf.is_skip = TG.stat.is_skip;
@@ -1282,11 +1505,19 @@ else $('.myMessage').animate({"opacity": 0}, 300);
 [showsystembutton]
 [endmacro]
 
-[_tb_end_tyrano_code  ]
-*select
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+
+; =========================================================================
+
+*select
+
+[tb_start_tyrano_code]
+
+; 選択肢準備
 [macro name="select_set"]
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1320,6 +1551,7 @@ tf.system.backlog.push("<hr>◆選択肢");
 [endmacro]
 
 
+; ボタンセット
 [macro name="select_btn"]
 [eval exp="tf.text = mp.text"]
 
@@ -1343,7 +1575,9 @@ tf.system.backlog.push(tf.text);
 
 
 
+; 選択肢表示
 [macro name="select_show"]
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1361,6 +1595,7 @@ $('.select_bg').css({"opacity": 0.4});
 $('.select_btn').css({"opacity": 1});
 [endscript]
 
+; --------------------------------------
 [else]
 [anim name="select_bg" opacity="120" time="&tf.selectFadeTime"]
 [wait time="&tf.selectFadeTime"][wa]
@@ -1373,7 +1608,9 @@ $('.select_btn').css({"opacity": 1});
 [endmacro]
 
 
+; 選択肢非表示
 [macro name="select_hide"]
+; スキップ中はフェードなし
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1398,14 +1635,16 @@ tf.is_skip = TG.stat.is_skip;
 $('.layer.3_fore').css({"z-index": 13});
 
 if(tf.title != ''){
-tf.system.backlog.push("<hr>◆" + tf.title + "<hr>");
+	tf.system.backlog.push("<hr>◆" + tf.title + "<hr>");
 }
 [endscript]
 
+; スキップ解除
 [cancelskip]
 [endmacro]
 
 
+; 選択後の画像表示
 [macro name="select_after_image"]
 [if exp="mp.mode == 'show'"]
 [image * layer="&sf.layFree" name="select_after" visible="true" left="18" top="180"]
@@ -1414,6 +1653,7 @@ tf.system.backlog.push("<hr>◆" + tf.title + "<hr>");
 $('.layer.3_fore').css({"z-index": 150});
 [endscript]
 
+; [anim name="select_after" opacity="0" time="0"][wa]
 [iscript]
 $('.select_after').css({"opacity": 0});
 [endscript]
@@ -1432,6 +1672,7 @@ $('.layer.3_fore').css({"z-index": 12});
 
 
 
+; ヒーローごっこルールの画像表示
 [macro name="rule_image"]
 [eval exp="tf.x = [0, 240, 440, 640]"]
 
@@ -1442,6 +1683,7 @@ $('.layer.3_fore').css({"z-index": 12});
 $('.layer.3_fore').css({"z-index": 150});
 [endscript]
 
+; [anim name="&'rule_image' + mp.num" opacity="0" time="0"][wa]
 [iscript]
 $('.rule_image' + mp.num).css({"opacity": 0});
 [endscript]
@@ -1462,8 +1704,12 @@ $('.layer.3_fore').css({"z-index": 12});
 [endmacro]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+; =========================================================================
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [return]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

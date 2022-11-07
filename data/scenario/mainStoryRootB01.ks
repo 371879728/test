@@ -1,14 +1,19 @@
-[_tb_system_call  storage="system/_mainStoryRootB01.ks"  ]
+[_tb_system_call storage=system/_mainStoryRootB01.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [message_name mode="hide"]
 
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -197,12 +202,16 @@
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="root-D01-1"]
 
-[_tb_end_tyrano_code  ]
-*scene2
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*scene2
+
+[tb_start_tyrano_code]
+
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -222,6 +231,7 @@
 [bgm id="nichijou_d" mode="play"]
 [mask_off]
 
+; 通常
 [else]
 
 [window_all_hide]
@@ -960,9 +970,11 @@
 [message_name name="桐生 ヤマト"]
 「……しりとりでもするか？」[pr]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene3
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [bgm mode="end"]
 
 [eyecatch]
@@ -1125,15 +1137,19 @@
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="root-D01-2"]
 
 [window_all_hide]
 [wait_skip]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="mainStoryRootB02.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

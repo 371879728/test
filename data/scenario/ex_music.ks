@@ -1,10 +1,13 @@
-[_tb_system_call  storage="system/_ex_music.ks"  ]
+[_tb_system_call storage=system/_ex_music.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval exp="f.music_now_page = 1"]
 [eval exp="f.music_max_page = 3"]
 
+; ▼mask on
 [mask cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 
 *back
@@ -15,6 +18,7 @@
 [image layer="base" storage="../bgimage/sys_back.jpg"]
 [image layer="0" storage="../image/extra/ttl_extra.png" left="15" top="12" visible="true"]
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
 
@@ -48,7 +52,7 @@
 <p class="music-title">MUSIC TITLE</p>
 <p class="like-title">LIKE</p>
 </div>
--->
+ -->
 <div class="music-scroll">
 <div class="scroll-area">
 <ul id="music-list-inner">
@@ -184,6 +188,7 @@ $('#music-num').html(num);
 [htmlBtn id="button_test" storage="ex_music.ks" target="return"]
 
 
+; ページ操作
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_prev.png" x="280" y="500" target="*prev"]
 
 [message_current layer="message0"]
@@ -197,27 +202,37 @@ $('#music-num').html(num);
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_next.png" x="590" y="500" target="*next"]
 
 
+; ▼mask_off
 [mask_off cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = false"]
 [eval exp="f.ex_fade = true"]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
 *next
-[eval  exp="f.music_now_page++"  ]
-[eval  cond="f.music_now_page>f.music_max_page"  exp="f.music_now_page=1"  ]
-[jump  target="*back"  ]
-[s  ]
+[eval exp="f.music_now_page ++ "]
+[eval cond="f.music_now_page > f.music_max_page" exp="f.music_now_page = 1"]
+
+[jump target="*back"]
+[s]
+
+
 *prev
-[eval  exp="f.music_now_page--"  ]
-[eval  cond="f.music_now_page<=0"  exp="f.music_now_page=f.music_max_page"  ]
-[jump  target="*back"  ]
-[s  ]
-[_tb_end_tyrano_code  ]
+[eval exp="f.music_now_page --"]
+[eval cond="f.music_now_page <= 0" exp="f.music_now_page = f.music_max_page"]
+
+[jump target="*back"]
+[s]
+[_tb_end_tyrano_code]
+
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eval exp="f.charaScroll = 0"]
 
 [jump storage="ex_index.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

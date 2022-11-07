@@ -1,11 +1,15 @@
-[_tb_system_call  storage="system/_ex_chapter.ks"  ]
+[_tb_system_call storage=system/_ex_chapter.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval cond="f.chap_now_page == null" exp="f.chap_now_page = 1"]
 
+; ▼mask on
 [mask cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 
+; 回想突入マクロ
 [macro name="memory_jump"]
 [if exp="f.memoryMode == false"]
 [eval exp="f.memoryMode = true"]
@@ -16,10 +20,13 @@
 [endif]
 [endmacro]
 
+; ◆システムメニュー非表示
 [hidemenubutton]
 
+; ◆回想から戻って来た
 [if exp="f.memoryBack"]
 
+; スキップ解除
 [cancelskip]
 
 [bgm mode="end"]
@@ -29,8 +36,10 @@
 [wait time="300"]
 [endif]
 
+; バックログ記録停止
 [nolog]
 
+; バックログ削除
 [eval exp="tf.system.backlog = []"]
 
 
@@ -42,8 +51,10 @@
 [image layer="base" storage="../bgimage/sys_back.jpg"]
 [image layer="0" storage="../image/extra/ttl_extra.png" left="15" top="12" visible="true"]
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
+; チャプターリスト
 [macro name="type-link"]
 [iscript]
 var id = mp.id + '';
@@ -224,13 +235,16 @@ f.charaScroll = $(this).scrollTop();
 [eval exp="f.memoryMode = false"]
 [eval exp="f.memoryBack = false"]
 
+; ▼mask_off
 [mask_off cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = false"]
 [eval exp="f.ex_fade = true"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *ch01_1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [memory_jump storage="mainStory01.ks" target="*scene1"]
 [s]
 
@@ -345,13 +359,16 @@ f.charaScroll = $(this).scrollTop();
 [memory_jump storage="mainStoryrootC.ks" target="*scene1"]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eval exp="f.charaScroll = 0"]
 
 [eval exp="f.chap_now_page = 1"]
 
 [jump storage="ex_index.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

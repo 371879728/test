@@ -1,7 +1,10 @@
-[_tb_system_call  storage="system/_ex_eventcg.ks"  ]
-*start
-[tb_start_tyrano_code  ]
+[_tb_system_call storage=system/_ex_eventcg.ks]
 
+*start
+
+[tb_start_tyrano_code]
+
+; ▼mask on
 [mask cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 
 [cm]
@@ -14,6 +17,7 @@
 [eval exp="tf.nowpage = 1"]
 [eval exp="tf.maxpage = 2]
 
+; ▼スチルリストマクロ
 [macro name="eventcg_list"]
 [eval exp="tf.num = mp.num + ''"]
 [eval exp="tf.img = '../image/extra/eventcg_img_s_' + tf.num + '.jpg'"]
@@ -21,6 +25,7 @@
 [image name="all_hide" layer="1" cond="sf.eventcg_view[tf.num] != true" storage="../image/extra/eventcg_img_s_locked.png" left="&mp.x" top="&mp.y" visible="true"]
 [endmacro]
 
+; ▼スチル表示マクロ
 [macro name="eventcg_view"]
 [mask time="500"]
 
@@ -32,12 +37,15 @@
 [mask_off time="500"]
 [cm]
 
+; クリック待ち
 [glyph line="none.gif" fix="true" left="980" top="540"]
 [endmacro]
 
+; ▼スチル非表示マクロ
 [macro name="eventcg_view_off"]
 [mask time="500"]
 
+; クリック待ちグリフ戻し
 [glyph line="nextpage.gif" fix="true" left="900" top="520"]
 
 [eval exp="tf.eventcg_back = true"]
@@ -45,6 +53,7 @@
 [endmacro]
 
 
+; ◆リスト表示
 *back
 [cm]
 [freeimage layer="0"]
@@ -53,8 +62,10 @@
 [image layer="base" storage="sys_back.jpg"]
 [image layer="0" storage="../image/extra/ttl_eventcg.png" left="15" top="12" visible="true"]
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
+; ページ操作
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_prev.png" x="280" y="500" target="*prev"]
 
 [message_current layer="message0"]
@@ -67,6 +78,7 @@
 
 [button enterse="select.ogg" clickse="click.ogg" name="all_hide" graphic="../image/extra/btn_next.png" x="590" y="500" target="*next"]
 
+; ▼リスト
 [eval exp="tf.x = [200, 410, 620, 830]"]
 [eval exp="tf.y = [80, 210, 340]"]
 
@@ -109,6 +121,7 @@
 [eval exp="tf.eventcg_back = false"]
 [endif]
 
+; ▼mask_off
 [mask_off cond="f.ex_subpage_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = false"]
 [eval exp="f.ex_fade = true"]
@@ -129,9 +142,11 @@
 
 [jump target="*back"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *open
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 *img1
 [eventcg_view num="1"]
 [message_current layer="message0"][p]
@@ -281,10 +296,13 @@
 [eventcg_view_off]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="ex_index.ks"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

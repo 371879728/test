@@ -1,14 +1,19 @@
-[_tb_system_call  storage="system/_mainStoryRootA01.ks"  ]
+[_tb_system_call storage=system/_mainStoryRootA01.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [message_name mode="hide"]
 
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -316,6 +321,7 @@
 [message_name name="不良Ａ"]
 「……チッ、行くぞ」[pr]
 
+; 立ち去る不良
 
 [chara_img name="yamato" mode="face" mayu="normal" me="normal" kuti="toziru"]
 [chara_img name="honoka" mode="face" mayu="normal" kuti="normal"]
@@ -477,12 +483,16 @@
 桐生くんの５人兄弟は、たしかお姉さん１人と[r]
 妹さん３人だっただろうか。[ls]どんな人たちなんだろう。[pr]
 
+; 回想終了
 [memory_end chapter="root-P01-1"]
 
-[_tb_end_tyrano_code  ]
-*scene2
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*scene2
+
+[tb_start_tyrano_code]
+
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -502,6 +512,7 @@
 
 [bgm id="nichijou_d" mode="play"]
 
+; 通常
 [else]
 [window_all_hide]
 [wait_skip]
@@ -606,6 +617,7 @@
 [chara_img name="yamato" mode="face" me="toziru" kuti="toziru"]
 [chara_img name="honoka" mode="face" me="warau" kuti="warau" ase="false"]
 
+; (笑)
 [message_name name="主人公"]
 「あは……知らない女って」[pr]
 
@@ -721,6 +733,7 @@
 友達の家に行くという経験が全くないので、[r]
 出されたお茶を飲むことにもためらってしまう。[pr]
 
+; ココノノ表示
 [iscript]
 $('.layer.3_fore').css({"z-index": 150});
 tf.is_skip = TG.stat.is_skip;
@@ -761,6 +774,7 @@ $('.coconono_nozoku').css({"opacity": 0});
 [message_name mode="hide"]
 珍獣かなにかと思われているらしい。[pr]
 
+; ココノノ非表示
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1152,9 +1166,11 @@ $('.layer.3_fore').css({"z-index": 12});
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene3
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [window_all_hide]
 [wait_skip]
 [bgimg storage="black.jpg"]
@@ -1434,12 +1450,16 @@ $('.layer.3_fore').css({"z-index": 12});
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="root-P01-2"]
 
-[_tb_end_tyrano_code  ]
-*scene4
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*scene4
+
+[tb_start_tyrano_code]
+
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -1455,6 +1475,7 @@ $('.layer.3_fore').css({"z-index": 12});
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [eyecatch]
@@ -1828,9 +1849,11 @@ $('.layer.3_fore').css({"z-index": 12});
 [message_name name="桐生 ヤマト"]
 「おう。おやすみ」[pr]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene5
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [window_all_hide]
 [wait_skip]
 [bgimg storage="bg_kiryu_asuka_door.jpg" method="fadeInLeft"]
@@ -2161,15 +2184,19 @@ $('.layer.3_fore').css({"z-index": 12});
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="root-P01-3"]
 
 [window_all_hide]
 [wait_skip]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="mainStoryRootA02.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

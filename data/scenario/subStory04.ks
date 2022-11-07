@@ -1,6 +1,8 @@
-[_tb_system_call  storage="system/_subStory04.ks"  ]
+[_tb_system_call storage=system/_subStory04.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -20,9 +22,11 @@
 [sceneTitle text="おまけ「中間発表どうだったの？」"]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [bgm id="nichijou_d" mode="play"]
 
@@ -173,6 +177,7 @@ $('.layer.3_fore').css({"z-index": 12});
 [chara_img name="honoka"  mode="face" me="warau" kuti="hohoemu" tere="true"]
 [message_name name="主人公"]
 「うん」[pr]
+; 惚れた顔
 
 [chara_img name="yamato"  mode="face" me="normal" kuti="warau"]
 [message_name name="桐生ヤマト"]
@@ -184,12 +189,15 @@ $('.layer.3_fore').css({"z-index": 12});
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [cancelskip]
 [eval exp="f.omake_back = true"]
 [jump storage="ex_omake.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

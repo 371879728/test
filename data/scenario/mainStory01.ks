@@ -1,6 +1,8 @@
-[_tb_system_call  storage="system/_mainStory01.ks"  ]
+[_tb_system_call storage=system/_mainStory01.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [mask time="1500" color="0xffffff"]
 [cm]
@@ -22,9 +24,12 @@
 [eval exp="f.root_dog = 0"]
 [eval exp="f.memoryMode = false"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -111,6 +116,7 @@
 [playseEx storage="chime.ogg"]
 [weekCutOut]
 
+; 曜日表示
 [message_day mode="show" day="月" text="国立Ｓ学園・Ａクラス教室"]
 
 [message mode="set"]
@@ -132,6 +138,7 @@
 ふと、前の席に座っている子がこちらを向いた。[ls][r]
 名前は……忘れてしまった。[pr]
 
+; 湯森さん
 
 [message_name mode="show" name="女子生徒"]
 「[浅利]さん、何を読んでいるの？」[pr]
@@ -140,6 +147,7 @@
 [chara_img mode="face" name="honoka" kuti="hohoemu"]
 「犬の雑誌だよ」[pr]
 
+; いぬのきもち的な
 [message_name name="女子生徒"]
 「へえ。犬飼ってるの？」[pr]
 
@@ -167,13 +175,17 @@
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="ch01-1"]
 
 [jump target="*scene2"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -190,6 +202,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 [image layer="base" storage="bg_machi02.jpg"]
@@ -385,10 +398,12 @@
 
 [bgm id="battle" mode="play"]
 
+; 対戦演出開始
 [battle_set mode="left" id="yamato" name="桐生 ヤマト" text="手加減しないからな"]
 [battle_set mode="right" id="boy" name="中学生" text="すぐに終わらせるよ"]
 [battle_cutin]
 
+; キャラ表示
 [chara_img name="yamato" mode="show" posi="left" mayu="kiri" time="0" badge="true"]
 [chara_img name="boy" mode="show" posi="right" time="0"]
 [chara_img type="heroine" name="honoka" mode="show" time="0" badge="true"]
@@ -397,6 +412,7 @@
 
 [bgm mode="end"]
 
+; 対戦演出おわり
 [battle_cutin_off]
 
 [bgm id="nichijou_a" mode="play"]
@@ -596,13 +612,17 @@
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="ch01-2"]
 
 [jump target="*scene3"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene3
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -618,6 +638,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [message_name mode="hide"]
@@ -636,9 +657,11 @@
 
 桐生くんと出会ったのは、今から半年ほど前のことだ。[pr]
 
+; ＊
 
 [bgimg storage="bg_machi03.jpg"]
 
+; 上下バー表示
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -907,13 +930,17 @@ $('.layer 3_fore').css({"z-index": 10});
 
 [bgm mode="end"]
 
+; 回想終了
 [memory_end chapter="ch01-3"]
 
 [jump target="*scene4"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene4
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -930,9 +957,11 @@ $('.layer 3_fore').css({"z-index": 10});
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 
+; 上下バー非表示表示
 [freeimage layer="&sf.layFree"]
 [iscript]
 $('.layer 3_fore').css({"z-index": 13});
@@ -1117,6 +1146,7 @@ tf.is_skip = TG.stat.is_skip;
 兄ちゃんがご飯を作っている間に、テレビをつける。[ls][r]
 テレビの音は宿題のお供にちょうどいい。[pr]
 
+; ニュース画面
 [message_name name="アナウンサー" mode="show"]
 「７時になりました。ニュースをお伝えします」[pr]
 
@@ -1147,6 +1177,7 @@ tf.is_skip = TG.stat.is_skip;
 [chara_img name="honoka" mode="face" mayu="normal" kuti="hohoemu"]
 そのために兄ちゃんたち大人が動いているのだ。[pr]
 
+; ピッ
 
 [chara_img name="honoka" mode="face" kuti="normal"]
 適当な番組に変えて、鞄から宿題を取り出す。[ls][r]
@@ -1189,6 +1220,7 @@ tf.is_skip = TG.stat.is_skip;
 [message_name name="主人公"]
 「いいよ」[pr]
 
+; ＊＊＊
 
 *select_back
 [message_name mode="hide"]
@@ -1199,13 +1231,17 @@ tf.is_skip = TG.stat.is_skip;
 
 どの項目を読もうかな。[p]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [sceneTitle text="選択肢｜ヒーローごっこマニュアル"]
 
+; スキップ解除
 [cancelskip]
 
+; 目パチを上書きしておかないと、スキップで来たあとにセーブすると、サムネが変になった
 [chara_img name="honoka" mode="face" me="normal"]
 
 [select_set]
@@ -1220,6 +1256,7 @@ tf.is_skip = TG.stat.is_skip;
 [s]
 
 
+; ◆ヒーローごっこの遊びかた
 *select_root1
 [message_day mode="set" day="月" text="自宅・リビング"]
 [select_hide title="１．ヒーローごっこの遊びかた"]
@@ -1244,6 +1281,7 @@ tf.is_skip = TG.stat.is_skip;
 [s]
 
 
+; ◆バッジについて
 *select_root2
 [message_day mode="set" day="月" text="自宅・リビング"]
 [select_hide title="２．バッジについて"]
@@ -1266,6 +1304,7 @@ tf.is_skip = TG.stat.is_skip;
 [jump target="*select_back"]
 [s]
 
+; ◆禁止事項について
 *select_root3
 [message_day mode="set" day="月" text="自宅・リビング"]
 [select_hide title="３．禁止事項について"]
@@ -1288,6 +1327,7 @@ tf.is_skip = TG.stat.is_skip;
 [jump target="*select_back"]
 [s]
 
+; ◆読み終わった
 *select_root4
 [message_day mode="set" day="月" text="自宅・リビング"]
 [select_hide title="読み終わった"]
@@ -1296,9 +1336,11 @@ tf.is_skip = TG.stat.is_skip;
 [jump target="*select_end"]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select_end
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [bgm mode="end"]
 
@@ -1334,9 +1376,11 @@ tf.is_skip = TG.stat.is_skip;
 [message_name name="主人公"]
 「桐生くんは……」[p]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [sceneTitle text="選択肢｜桐生くんってどんなひと？"]
 
 [nolog]
@@ -1346,6 +1390,7 @@ tf.is_skip = TG.stat.is_skip;
 [endnowait]
 [endnolog]
 
+; スキップ解除
 [cancelskip]
 [wait time="100"]
 
@@ -1358,6 +1403,7 @@ tf.is_skip = TG.stat.is_skip;
 [s]
 
 
+; ◆選択肢｜半分柴犬のひと
 *select2_root1
 [select_hide title="半分柴犬のひと"]
 [message_day mode="set" day="月" text="自宅・リビング"]
@@ -1397,6 +1443,7 @@ tf.is_skip = TG.stat.is_skip;
 [s]
 
 
+; ◆選択肢｜半分髪が赤いひと
 *select2_root2
 [select_hide]
 [message_day mode="set" day="月" text="自宅・リビング"]
@@ -1441,6 +1488,7 @@ tf.is_skip = TG.stat.is_skip;
 [s]
 
 
+; ◆合流
 *select2_end
 
 [chara_img name="honoka" mode="face" me="sorashi" kuti="normal"]
@@ -1465,9 +1513,11 @@ tf.is_skip = TG.stat.is_skip;
 
 [jump target="*scene5"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene5
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eyecatch]
 [image layer="base" storage="bg_asari_honoka.jpg"]
 [chara_img mode="hide_all" time="0"]
@@ -1536,15 +1586,18 @@ tf.is_skip = TG.stat.is_skip;
 [message mode="show" anim="fade" time="300"]
 桐生くんはいいやつだ。[pr]
 
+; 回想終了
 [memory_end chapter="ch01-4"]
 
 [window_all_hide]
 [wait_skip]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="mainStory02.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

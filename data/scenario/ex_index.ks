@@ -1,10 +1,13 @@
-[_tb_system_call  storage="system/_ex_index.ks"  ]
+[_tb_system_call storage=system/_ex_index.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval exp="f.ex_fade_time = 400"]
 [eval cond="f.ex_fade == null" exp="f.ex_fade = true"]
 
+; ▼mask on
 [mask cond="f.ex_fade != false" time="&f.ex_fade_time"]
 [eval exp="f.ex_subpage_fade = true"]
 
@@ -16,6 +19,7 @@
 [image layer="base" storage="../bgimage/sys_back.jpg"]
 [image layer="0" storage="../image/extra/ttl_extra.png" left="15" top="12" visible="true"]
 
+; メニュー
 [eval exp="tf.x = [165, 410, 655]"]
 [eval exp="tf.y = [85, 285]"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/extra/menu_chapter.png" x="&tf.x[0]" y="&tf.y[0]" storage="ex_chapter.ks"]
@@ -24,10 +28,12 @@
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/extra/menu_chara.png" x="&tf.x[1] + 125" y="&tf.y[1]" storage="ex_chara.ks"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/extra/menu_story.png" x="&tf.x[0] + 125" y="&tf.y[1]" storage="ex_omake.ks"]
 
+; クレジット
 [if exp="sf.chapter_end['ED1'] || sf.chapter_end['ED2'] || sf.chapter_end['ED3']"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/extra/menu_credit.png" x="820" y="320" storage="ex_index.ks" target="*credit_dialog"]
 [endif]
 
+; コンプ率表示
 [if exp="sf.complete != 100"]
 [eval exp="sf.complete = 0"]
 
@@ -102,6 +108,7 @@ COMPLETE … [emb exp="tf.comp"][r]
 [endnowait]
 
 
+; ページ共通ボタン
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/btn_back.png" y="480" target="*return" name="menu_close"]
 
 [mask_off cond="f.ex_fade != false" time="&f.ex_fade_time"]
@@ -113,9 +120,11 @@ COMPLETE … [emb exp="tf.comp"][r]
 [eval exp="tf.credit_back = false"]
 [endif]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
 *credit_dialog
-[tb_start_tyrano_code  ]
+[tb_start_tyrano_code]
 [dialog type="confirm" text="スタッフロールを再生しますか？" storage="" target="credit_start" storage_cancel="" target_cancel="start"]
 
 [s]
@@ -141,9 +150,13 @@ COMPLETE … [emb exp="tf.comp"][r]
 [eval exp="tf.credit_back = true"]
 [jump target="*start"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
+
 *return
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [if exp="f.musicNow != 'title'"]
 [bgm mode="end"]
@@ -160,4 +173,4 @@ COMPLETE … [emb exp="tf.comp"][r]
 
 [jump storage="title_screen.ks" target="*start"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]

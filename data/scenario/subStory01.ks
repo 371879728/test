@@ -1,6 +1,8 @@
-[_tb_system_call  storage="system/_subStory01.ks"  ]
+[_tb_system_call storage=system/_subStory01.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -20,9 +22,11 @@
 [sceneTitle text="ED1後日談「HOW&nbsp;TO&nbsp;LOVER」"]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [bgm id="nichijou_d" mode="play"]
 
@@ -91,6 +95,7 @@
 
 [chara_img name="honoka" mode="face" me="toziru"]
 
+; 廃工場倉庫でのほのかの台詞
 ――例え今の関係が全く変わらないんだとしても、[r]
 私以外に、私より近いところに誰かがいるの、[r]
 見たくない。[pr]
@@ -101,6 +106,7 @@
 だから恋人同士でしかしない特別なことも、[r]
 たくさんしたいなと思うのだ。[pr]
 
+; アイキャッチ
 [eyecatch]
 [image layer="base" storage="bg_machi03.jpg"]
 [chara_img mode="hide" type="heroine" name="honoka" time="0"]
@@ -109,6 +115,7 @@
 [message_day mode="hide" time="0"]
 [eyecatch_off]
 
+; 開け
 [message_day mode="show" day="月" text="住宅街"]
 
 [message_name name="桐生 ヤマト" mode="show"]
@@ -269,6 +276,7 @@
 
 [bgm id="nichijou_d" mode="end"]
 
+; 移動
 [window_all_hide]
 [wait_skip]
 [bgimg storage="bg_roji.jpg" method="fadeInLeft"]
@@ -516,12 +524,15 @@
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [cancelskip]
 [eval exp="f.omake_back = true"]
 [jump storage="ex_omake.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

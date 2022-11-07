@@ -1,12 +1,17 @@
-[_tb_system_call  storage="system/_mainStory02.ks"  ]
+[_tb_system_call storage=system/_mainStory02.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -23,6 +28,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [bgm mode="end"]
@@ -62,6 +68,7 @@
 [message_name name="サラリーマン" mode="show"]
 「出たな、善役！」[pr]
 
+; リーマンカットイン
 [message_name mode="hide"]
 [wait_skip time="500"]
 [cutin name="ryman" move="left"]
@@ -73,6 +80,7 @@
 [message_name name="主人公" mode="show"]
 「出たな、悪役！」[pr]
 
+; ほのかカットイン
 [message_name mode="hide"]
 [wait_skip time="500"]
 [cutin name="honoka" move="right"]
@@ -94,10 +102,12 @@
 
 [bgm id="battle" mode="play"]
 
+; 対戦演出開始
 [battle_set mode="left" id="honoka" name="主人公" text="押忍"]
 [battle_set mode="right" id="ryman" name="サラリーマン" text="仕事行きたくないなぁ"]
 [battle_cutin]
 
+; キャラ表示
 [chara_img name="ryman" mode="show" time="0" badge="true"]
 [chara_img type="heroine" name="honoka" mode="show" time="0" badge="true"]
 [message_day mode="show" day="火" text="通学路" time="0"]
@@ -105,6 +115,7 @@
 
 [bgm mode="end"]
 
+; 対戦演出おわり
 [battle_cutin_off]
 
 [bgm id="nichijou_b" mode="play"]
@@ -186,9 +197,11 @@
 
 [jump target="*scene2"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [eyecatch]
 [image layer="base" storage="bg_school_step_a.jpg"]
@@ -357,9 +370,11 @@
 [chara_img name="honoka" mode="face" me="sorashi"]
 桐生くんのいいところ。[r]
 今考えてみて思い付くのは……[p]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [sceneTitle text="選択肢｜桐生くんのいいところは？"]
 
 [nolog]
@@ -370,6 +385,7 @@
 [endnowait]
 [endnolog]
 
+; スキップ解除
 [cancelskip]
 [wait time="100"]
 
@@ -382,6 +398,7 @@
 [s]
 
 
+; ◆選択肢２－１｜毛並みが綺麗（犬度）
 *select_root1
 [select_hide title="毛並みが綺麗"]
 [message_day mode="set" day="火" text="国立Ｓ学園・廊下"]
@@ -403,6 +420,7 @@
 [s]
 
 
+; ◆選択肢２－２｜笑顔（人間度）
 *select_root2
 [select_hide title="笑顔"]
 [message_day mode="set" day="火" text="国立Ｓ学園・廊下"]
@@ -424,6 +442,7 @@
 [s]
 
 
+; ◆合流
 *select_end
 [sceneTitle text="火曜日｜国立Ｓ学園・廊下"]
 
@@ -436,6 +455,7 @@
 見つかるだろう。[ls]次にまた「いいやつだ」と思った時、[r]
 もう少し深く考えてみることにしよう。[pr]
 
+; 回想終了
 [memory_end chapter="ch02-1"]
 
 
@@ -443,9 +463,12 @@
 
 [jump target="*scene3"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene3
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -462,6 +485,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 [image layer="base" storage="bg_school_doar.jpg"]
@@ -975,6 +999,7 @@
 私ももう少し話してみたいと思った。[r]
 また今度遊びに来ることにしよう。[pr]
 
+; 回想終了
 [memory_end chapter="ch02-2"]
 
 [bgm mode="end"]
@@ -982,9 +1007,12 @@
 
 [jump target="*scene4"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene4
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -1002,6 +1030,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 [image layer="base" storage="bg_ramen.jpg"]
@@ -1342,6 +1371,7 @@
 いつもはすぐに獣化を解いてしまうから、[r]
 こうしてじっくり見ることができるのは貴重だ。[pr]
 
+; ミニスチル　ずいと顔をよせるほのかと、複雑な顔のヤマト
 
 [chara_img name="yamato_dog" mode="face" mayu="kiri" me="hannme" kuti="toziru" ase="true" ]
 よく見ると人間の姿の時よりも質量が増えているらしく、[r]
@@ -1354,6 +1384,7 @@
 [message_name name="桐生 ヤマト" mode="show"]
 「…………」[pr]
 
+; スチル終わり
 
 [chara_img name="honoka" mode="face" mayu="normal" me="normal" kuti="warau" tere="false"]
 [message_name name="主人公"]
@@ -1487,9 +1518,11 @@
 [message_name name="主人公"]
 「桐生くんが半獣じゃなかったら……」[p]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [sceneTitle text="選択肢｜桐生くんが半獣じゃなかったら"]
 
 [nolog]
@@ -1499,6 +1532,7 @@
 [endnowait]
 [endnolog]
 
+; スキップ解除
 [cancelskip]
 [wait time="100"]
 
@@ -1511,6 +1545,7 @@
 [s]
 
 
+; ◆選択肢３－１｜ちょっと残念（犬度）
 *select2_root1
 [select_hide title="ちょっと残念"]
 [message_day mode="set" day="火" text="広場"]
@@ -1560,6 +1595,7 @@
 [s]
 
 
+; ◆選択肢３－２｜想像できない（人間度）
 *select2_root2
 [select_hide title="想像できない"]
 [message_day mode="set" day="火" text="広場"]
@@ -1633,6 +1669,7 @@
 [s]
 
 
+; ◆合流
 *select2_end
 [sceneTitle text="火曜日｜広場"]
 
@@ -1679,6 +1716,7 @@
 よくわからないが、桐生くんは一段落したような表情で[r]
 頷いていた。[pr]
 
+; 回想終了
 [memory_end chapter="ch02-3"]
 
 
@@ -1687,10 +1725,13 @@
 [window_all_hide]
 [wait_skip]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [jump storage="mainStory03.ks"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

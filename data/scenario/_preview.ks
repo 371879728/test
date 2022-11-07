@@ -1,16 +1,21 @@
-[_tb_system_call  storage="system/_preview.ks"  ]
-[mask  time="10"  ]
-[mask_off  time="10"  ]
-[tb_start_tyrano_code  ]
+[_tb_system_call storage=system/_preview.ks ]
 
+[mask time=10]
+[mask_off time=10]
+[tb_start_tyrano_code]
+
+; ブラウザ版かどうか（これ結局使わなかった。下にゴミ残ってるけど）
 [eval exp="sf.gametype_browser = false"]
 
+; ▼ファビコン設定
 [iscript]
 $("head").append('<link rel="shortcut icon" href="./tyrano/images/favicon.ico">');
 [endscript]
 
+; ------------------------------------------------------------------------------
 
 *attention
+; ▼CSSファイル読み込み
 [loadcss file="./data/others/first.css"]
 
 [bg storage="sys_title.jpg" time="1500" wait="false"]
@@ -18,6 +23,7 @@ $("head").append('<link rel="shortcut icon" href="./tyrano/images/favicon.ico">'
 [preload storage="data/image/first_alert.png"]
 [preload storage="data/image/tap_start.png"]
 
+; ▼最初の注意書き
 [wait time="1200"]
 
 [layopt layer="0" visible="true"]
@@ -28,26 +34,34 @@ $("head").append('<link rel="shortcut icon" href="./tyrano/images/favicon.ico">'
 [image layer="0" name="tap_start" storage="../image/tap_start.png" x="389" y="430" visible="true"]
 [p]
 
+; ------------------------------------------------------------------------------
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *logo
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; ◆メニューボタン非表示
 [hidemenubutton]
 
+; ◆システムボタン非表示
 [iscript]
 $('.message_close_btn').css({"display": "none"});
 [endscript]
 
+; ◆サークルロゴ
 [eval cond="f.suion25do == null" exp="f.suion25do = true"]
 
 [if exp="f.suion25do"]
 [mask graphic="suion25do.jpg" time="1000"]
 [freelayer layer="0"]
 
+; ローディング
 [image layer="base" storage="sys_loading.jpg"]
 [cm]
 
+; ブラウザ版でなければ強制ロード
 [if exp="sf.gametype_browser != true"]
 [eval exp="f.data_loading = true"]
 [jump target="*loading"]
@@ -78,6 +92,7 @@ $('.message_close_btn').css({"display": "none"});
 [cm]
 [layopt layer="0" visible="true"]
 
+; ロードする
 [if exp="f.data_loading"]
 
 [html]
@@ -94,6 +109,7 @@ $('.message_close_btn').css({"display": "none"});
 [eval exp="f.reload = false"]
 [endif]
 
+; 画像ロード
 [iscript]
 f.preload_images = [
 "data/bgimage/bg_asari_genkan.jpg",
@@ -637,6 +653,7 @@ f.preload_images = [
 </div>
 [endhtml]
 
+; システム読み込み
 [system_load]
 
 [wait time="200"]
@@ -655,10 +672,15 @@ $(".loader-icon").css({"display": "none"});
 [eval exp="tf.title_fade = true"]
 [endif]
 
-[_tb_end_tyrano_code  ]
-*start
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*start
+
+[tb_start_tyrano_code]
+; ◆ゲーム変数全消去
+; [clearvar]
+
+; ◆メニューボタン非表示
 [hidemenubutton]
 [hidesystembutton]
 
@@ -666,9 +688,11 @@ $(".loader-icon").css({"display": "none"});
 [mask time="100"]
 [endif]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *back
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [cm]
 [freeLayer]
 [freeimage layer="0"]
@@ -681,6 +705,7 @@ $(".loader-icon").css({"display": "none"});
 [image layer="0" storage="../image/title/chara.png" visible="true"]
 [image layer="0" storage="../image/title/logo.png" x="610" y="70" visible="true"]
 
+; ◆レイヤリセット
 [eval exp="tf.name_fade = true"]
 [nowait]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/title/btn_start.png" name=" allHide" x="660" y="220" storage="sys_namechange.ks"]
@@ -688,35 +713,44 @@ $(".loader-icon").css({"display": "none"});
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/title/btn_config.png" name=" allHide" x="660" y="380" role="sleepgame" exp="f.title_now = true" storage="sys_config.ks"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/title/btn_extra.png" name=" allHide" x="732" y="455" storage="ex_index.ks"]
 
+; [button enterse="select.ogg" clickse="click.ogg" cond="f.data_loading == false" graphic="../image/title/download.png" name=" allHide" x="915" y="455" target="*game_reload"]
 [endnowait]
 
+; 音楽スタート
 [if exp="f.musicNow != 'title'"]
 [if exp="f.musicNow == null"][bgm id="title" mode="play"]
 [else][bgm id="title" mode="change"][endif]
 [endif]
 
+; マスク終わり
 [if exp="tf.title_fade"]
 [eval exp="tf.title_fade = false"]
 [mask_off]
 [endif]
 
 
+; バックログ記録停止
 [nolog]
 
+; バックログ削除
 [eval exp="tf.system.backlog = []"]
 [s]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *load
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showload]
 
 [jump target="*start"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *title_dialog
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [dialog type="confirm" text="タイトルに戻りますか？" storage="" target="ok_title" storage_cancel="" target_cancel="menu_return"]
 
 
@@ -746,9 +780,11 @@ $(".loader-icon").css({"display": "none"});
 [jump target="*start"]
 
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *game_reload
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [dialog type="confirm" text="画像をまとめてダウンロードしますか？" storage="" target="ok_rerload" storage_cancel="" target_cancel="back"]
 [s]
 
@@ -763,4 +799,5 @@ $(".loader-icon").css({"display": "none"});
 [eval exp="f.reload = true"]
 [jump target="loading"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

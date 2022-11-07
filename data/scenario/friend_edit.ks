@@ -1,8 +1,11 @@
-[_tb_system_call  storage="system/_friend_edit.ks"  ]
+[_tb_system_call storage=system/_friend_edit.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [sceneTitle text="どんな顔だったかな？"]
 
+; 準備
 [eval exp="f.edit_fade = true"]
 [eval exp="f.edit_mode = true"]
 
@@ -18,6 +21,7 @@
 [eval cond="sf.nowFace == null" exp="sf.nowFace = 1"]
 [eval cond="sf.nowCos == null" exp="sf.nowCos  = 1"]
 
+; キャラ定義
 [chara_new name="friend" storage="chara/friend_base.png"]
 [chara_layer name="friend" part="hair" id="hair1" storage="chara/friend_hair1.png"]
 [chara_layer name="friend" part="hair" id="hair2" storage="chara/friend_hair2.png"]
@@ -41,6 +45,7 @@
 *back
 [cm]
 
+; スキップ解除
 [cancelskip]
 [autostop]
 
@@ -61,6 +66,7 @@
 [endif]
 
 
+; 似顔絵
 [eval exp="tf.hair = sf.nowHead"]
 [eval cond="tf.hair == 0" exp="tf.hair = '0'"]
 [eval exp="tf.face = sf.nowFace"]
@@ -73,6 +79,7 @@
 [endif]
 
 
+; ヒント
 [layopt layer="&sf.layFree" visible="false"]
 [image layer="&sf.layFree" storage="../image/edit_hint.png" left="135" top="440"]
 
@@ -104,18 +111,22 @@
 [layopt cond="tf.flag" layer="&sf.layFree" visible="true"]
 
 
+; ボタン類
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/edit_btn_ng.png" target="edit_ng" x="240" y="475"]
 [button enterse="select.ogg" clickse="click.ogg" graphic="../image/edit_btn_ok.png" target="edit_ok" x="530" y="475"]
 
 [eval exp="f.x = [455, 920]"]
 [eval exp="f.y = [133, 237, 348]"]
 
+; 頭
 [button enterse="select.ogg" graphic="../image/edit_btn_prev.png" x="&f.x[0]" y="&f.y[0]" target="back" exp="sf.nowHead --"]
 [button enterse="select.ogg" graphic="../image/edit_btn_next.png" x="&f.x[1]" y="&f.y[0]" target="back" exp="sf.nowHead ++"]
 
+; 顔
 [button enterse="select.ogg" graphic="../image/edit_btn_prev.png" x="&f.x[0]" y="&f.y[1]" target="back" exp="sf.nowFace --"]
 [button enterse="select.ogg" graphic="../image/edit_btn_next.png" x="&f.x[1]" y="&f.y[1]" target="back" exp="sf.nowFace ++"]
 
+; 表情
 [button enterse="select.ogg" graphic="../image/edit_btn_prev.png" x="&f.x[0]" y="&f.y[2]" target="back" exp="sf.nowCos --"]
 [button enterse="select.ogg" graphic="../image/edit_btn_next.png" x="&f.x[1]" y="&f.y[2]" target="back" exp="sf.nowCos ++"]
 
@@ -145,13 +156,16 @@
 
 
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
+
 *edit_ng
-[tb_start_tyrano_code  ]
+[tb_start_tyrano_code]
 [eval exp="f.friend_edit = 'cancel'"]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *edit_ok
-[tb_start_tyrano_code  ]
+[tb_start_tyrano_code]
 [mask time="500"]
 [cm]
 [freeLayer]
@@ -161,4 +175,5 @@
 [eval exp="f.edit_mode = false"]
 [return]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+

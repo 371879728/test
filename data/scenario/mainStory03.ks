@@ -1,12 +1,17 @@
-[_tb_system_call  storage="system/_mainStory03.ks"  ]
+[_tb_system_call storage=system/_mainStory03.ks]
+
 *start
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [showmenubutton]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene1
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -24,6 +29,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 
 [weekCutIn title="水曜日" text="Wednesday"]
@@ -62,6 +68,7 @@
 [message_name name="主人公" mode="show"]
 「出たな、ロスト！」[pr]
 
+; ほのかカットイン
 [message_name mode="hide"]
 [wait_skip time="500"]
 [cutin name="honoka" move="right"]
@@ -71,6 +78,7 @@
 [message_name name="サラリーマン" mode="show"]
 「出たな、善役！」[pr]
 
+; リーマンカットイン
 [message_name mode="hide"]
 [wait_skip time="500"]
 [cutin name="ryman_lost" move="left"]
@@ -96,10 +104,12 @@
 
 [bgm id="battle" mode="play"]
 
+; 対戦演出開始
 [battle_set mode="left" id="honoka" name="主人公" text="押忍"]
 [battle_set mode="right" id="ryman_lost" name="サラリーマン" text="仕事行きたくないなぁ"]
 [battle_cutin]
 
+; キャラ表示
 [chara_img name="ryman" mode="show" time="0"]
 [chara_img type="heroine" name="honoka" mode="show" time="0"]
 [chara_img name="ryman" mode="show" time="0" lost="true"]
@@ -108,6 +118,7 @@
 
 [bgm mode="end"]
 
+; 対戦演出おわり
 [battle_cutin_off]
 
 [bgm id="nichijou_b" mode="play"]
@@ -196,13 +207,17 @@
 私は空手のそういうところが好きだった。[ls][r]
 ヒーローごっこもそれと同じだ。[pr]
 
+; 回想終了
 [memory_end chapter="ch03-1"]
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene2
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -219,6 +234,7 @@
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 [image layer="base" storage="bg_school_rouka_e.jpg"]
@@ -327,6 +343,7 @@
 [endif]
 [call storage="friend_edit.ks"]
 
+; 続行
 [if exp="f.friend_edit == 'ririna' || f.friend_edit == 'tatsumi' || f.friend_edit == 'cancel'"]
 [bgm mode="end"]
 [endif]
@@ -342,10 +359,12 @@
 
 [sceneTitle text="水曜日｜国立Ｓ学園・Ｅクラス廊下"]
 
+; 回想終了
 [if exp="f.friend_edit == 'ririna' || f.friend_edit == 'tatsumi'"]
 [memory_end chapter="ch03-2"]
 [endif]
 
+; 続行
 [if exp="f.friend_edit == 'ririna' || f.friend_edit == 'tatsumi' || f.friend_edit == 'cancel'"]
 [bgm id="nichijou_d" mode="play"]
 
@@ -380,9 +399,11 @@
 [endif]
 
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *edit_skip
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [select_hide]
 [sceneTitle text="水曜日｜国立Ｓ学園・Ｅクラス廊下"]
@@ -401,16 +422,21 @@
 [chara_img name="honoka" mode="face" mayu="normal" kuti="normal"]
 簡潔に言うと、彼は廊下の先に消えて行った。[pr]
 
+; 回想終了
 [memory_end chapter="ch03-2"]
 
 [bgm mode="end"]
 
 [jump target="*select_end"]
 
-[_tb_end_tyrano_code  ]
-*select_ririna
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+*select_ririna
+
+[tb_start_tyrano_code]
+; 里井りり奈の特徴を言う
+
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -690,6 +716,7 @@
 「なんて言うか……好きだったものが全部なくなって、[r]
 何にも興味持てなくなっちゃった」[pr]
 
+; 空手破門と愛犬の死
 [message_name name="里井 りり奈"]
 「ありゃ」[pr]
 
@@ -826,6 +853,7 @@
 [chara_img name="honoka" mode="face" me="warau" tere="true"]
 [message_name name="主人公"]
 「私も楽しいよ、桐生くんと一緒にいるの」[pr]
+; ふにゃっと笑う
 
 [chara_img name="ririna" mode="face" me="warau" kuti="normal"]
 [message_name name="里井 りり奈"]
@@ -868,6 +896,7 @@
 [message_name name="主人公"]
 「あるよ」[pr]
 
+; スマホ画像
 
 [chara_img name="ririna" mode="face" mayu="kiri"]
 [message_name name="里井 りり奈"]
@@ -881,6 +910,7 @@
 [message_name name="里井 りり奈"]
 「推せるわ～」[pr]
 
+; 回想終了
 [memory_end chapter="ch03-3a"]
 
 [bgm mode="end"]
@@ -888,10 +918,16 @@
 [eval exp="f.sugasato = 'ririna'"]
 [jump target="*select_end"]
 [s]
-[_tb_end_tyrano_code  ]
-*select_tatsumi
-[tb_start_tyrano_code  ]
+[_tb_end_tyrano_code]
 
+
+
+*select_tatsumi
+
+[tb_start_tyrano_code]
+; 須賀たつみの特徴を言う
+
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -1042,6 +1078,7 @@
 
 [message_name mode="hide"]
 
+; あついぬ表示
 [iscript]
 $('.layer.3_fore').css({"z-index": 150});
 tf.is_skip = TG.stat.is_skip;
@@ -1066,6 +1103,7 @@ $('.atsuinu').css({"opacity": 0});
 
 [message_name mode="hide"]
 
+; あついぬ非表示
 [iscript]
 tf.is_skip = TG.stat.is_skip;
 [endscript]
@@ -1390,6 +1428,7 @@ $('.layer.3_fore').css({"z-index": 12});
 [message_name name="須賀 たつみ"]
 「ふー。ひと安心だぜ」[pr]
 
+; 回想終了
 [memory_end chapter="ch03-3b"]
 
 
@@ -1398,9 +1437,12 @@ $('.layer.3_fore').css({"z-index": 12});
 [eval exp="f.sugasato = 'tatsumi'"]
 [jump target="*select_end"]
 [s]
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *select_end
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -1419,6 +1461,7 @@ $('.layer.3_fore').css({"z-index": 12});
 [message_day mode="show" day="水" text="国立Ｓ学園・上位棟廊下"]
 [eval exp="tf.sugasato = 'ririna'"]
 
+; 通常
 [else]
 [window_all_hide]
 [wait_skip]
@@ -1456,6 +1499,7 @@ $('.layer.3_fore').css({"z-index": 12});
 [endif]
 
 
+; 人間ルート
 [if exp="f.dokuhaku_flag && f.root_people >= 3"]
 [select_after_image mode="show" storage="../image/select_icon_p.png"]
 
@@ -1490,6 +1534,7 @@ sf.chapter['ch03-4a'] = true;
 [endif]
 
 
+; 犬ルート
 [if exp="f.dokuhaku_flag && f.root_dog >= 3"]
 [select_after_image mode="show" storage="../image/select_icon_d.png"]
 
@@ -1568,13 +1613,17 @@ sf.chapter['ch03-4b'] = true;
 
 何かあったようだが、とりあえず生きてはいるようだ。[pr]
 
+; 回想終了
 [memory_end]
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene3
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
+; 回想用
 [if exp="f.memoryMode"]
 [eval exp="f.oldMusic = f.musicNow"]
 [bgm mode="end"]
@@ -1592,6 +1641,7 @@ sf.chapter['ch03-4b'] = true;
 [message mode="show" time="0"]
 [mask_off]
 
+; 通常
 [else]
 [eyecatch]
 [image layer="base" storage="bg_machi02.jpg"]
@@ -1638,6 +1688,7 @@ sf.chapter['ch03-4b'] = true;
 それにしても意識がもうろうとする程とは、[r]
 相当痛めつけられたのだろう。[pr]
 
+; ▼喧嘩の話を聞いた
 [if exp="f.sugasato == 'ririna' || f.sugasato == 'tatsumi'"]
 *kennka
 
@@ -1684,6 +1735,7 @@ sf.chapter['ch03-4b'] = true;
 [chara_img name="honoka" mode="face" me="normal" kuti="normal"]
 [else]
 
+; ▼喧嘩の話を聞いていない
 [chara_img name="yamato" mode="face" mayu="normal" kuti="toziru"]
 [chara_img name="honoka" mode="face" mayu="normal" ase="false"]
 
@@ -2257,9 +2309,11 @@ sf.chapter['ch03-4b'] = true;
 
 [bgm mode="end"]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *scene4
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 [eyecatch]
 [image layer="base" storage="bg_asari_living.jpg"]
 [message_day mode="hide" time="0"]
@@ -2326,6 +2380,7 @@ sf.chapter['ch03-4b'] = true;
 今はもう時間に融通が利くようになったとかで、[r]
 夕方には家に帰っているが。[pr]
 
+; ヤマトルート
 [if exp="f.root_people >= 3 || f.root_dog >= 3"]
 *rootA_B
 
@@ -2347,6 +2402,7 @@ sf.chapter['ch03-4b'] = true;
 兄ちゃんは観念したように肩をすくめると、[r]
 私の頭をわしわしと撫でた。[pr]
 
+; ノーマルエンドルート
 [else]
 *rootC
 
@@ -2400,6 +2456,7 @@ sf.chapter['ch03-4b'] = true;
 
 [endif]
 
+; 回想終了
 [memory_end chapter="ch03-5"]
 
 
@@ -2408,9 +2465,11 @@ sf.chapter['ch03-4b'] = true;
 [window_all_hide]
 [wait_skip]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
 *next
-[tb_start_tyrano_code  ]
+
+[tb_start_tyrano_code]
 
 [if exp="f.root_people >= 3 || f.root_dog >= 3"]
 [jump storage="mainStory04.ks"]
@@ -2418,4 +2477,5 @@ sf.chapter['ch03-4b'] = true;
 [jump storage="mainStoryRootC.ks"]
 [endif]
 
-[_tb_end_tyrano_code  ]
+[_tb_end_tyrano_code]
+
