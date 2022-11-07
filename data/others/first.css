@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+
+/* tap_start ---------------------------------------------- */
+.tap_start {
+  opacity: 0;
+  -webkit-animation: flash 1.8s linear infinite;
+  -moz-animation: flash 1.8s linear infinite;
+  animation: flash 1.8s linear infinite; }
+
+@-webkit-keyframes flash {
+  0%,80% {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+@-ms-keyframes flash {
+  0%,80% {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+@-moz-keyframes flash {
+  0%,80% {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+@keyframes flash {
+  0%,80% {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+
+    

@@ -22,7 +22,7 @@
 /* Default theme styles of the overlay */
 
 .remodal-overlay {
-  background: rgba(43, 46, 56, 0.9);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .remodal-overlay.remodal-is-opening,
@@ -52,16 +52,30 @@
 /* Default theme styles of the modal dialog */
 
 .remodal {
+  overflow: hidden;
   box-sizing: border-box;
-  width: 100%;
+  width: 60%;
   margin-bottom: 10px;
-  padding: 35px;
+  padding: 5%;
 
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 
-  color: #2b2e38;
-  background: #fff;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+  background: #f7f6f3;
+  font-family: 'mplus', sans-serif;
+}
+
+@media screen and(min-width: 640px) {
+  .remodal {
+    margin-bottom: 10px;
+    padding: 35px;
+   font-size: 16px;
+   line-height: 20px;
+  }
+
 }
 
 .remodal.remodal-is-opening,
@@ -146,9 +160,14 @@
   display: inline-block;
   overflow: visible;
 
-  min-width: 110px;
+  width: 15vw;
+  min-width: 80px;
+  max-width: 144px;
+  height: 5vw;
+  min-height: 22px;
+  max-height: 45px;
   margin: 0;
-  padding: 12px 0;
+  padding: 0;
 
   cursor: pointer;
   -webkit-transition: background 0.2s;
@@ -159,26 +178,49 @@
 
   border: 0;
   outline: 0;
+  color: rgba(255, 255, 255, 0);
 }
 
 .remodal-confirm {
-  color: #fff;
-  background: #81c784;
+  background: url(dialog_ok.png) no-repeat;
+  background-size: 100% auto;
+  transition: .1s;
+  -webkit-transition: .1s;
+  -moz-transition: .1s;
 }
 
-.remodal-confirm:hover,
+.remodal-confirm:active,
 .remodal-confirm:focus {
-  background: #66bb6a;
+  cursor: pointer;
+  transform: translateY(3px);
+  -webkit-transform: translateY(3px);
+  -moz-transform: translateY(3px);
+  -ms-transform: translateY(3px);
+  translate3d(0, 0, 0);
+  -webkit-translate3d(0, 0, 0);
+  -moz-translate3d(0, 0, 0);
+  -ms-translate3d(0, 0, 0);
 }
 
 .remodal-cancel {
-  color: #fff;
-  background: #e57373;
+  background: url(dialog_cansel.png) no-repeat;
+  background-size: 100% auto;
+  transition: .1s;
+  -webkit-transition: .1s;
+  -moz-transition: .1s;
 }
 
-.remodal-cancel:hover,
+.remodal-cancel:active,
 .remodal-cancel:focus {
-  background: #ef5350;
+  cursor: pointer;
+  transform: translateY(3px);
+  -webkit-transform: translateY(3px);
+  -moz-transform: translateY(3px);
+  -ms-transform: translateY(3px);
+  translate3d(0, 0, 0);
+  -webkit-translate3d(0, 0, 0);
+  -moz-translate3d(0, 0, 0);
+  -ms-translate3d(0, 0, 0);
 }
 
 /* Remove inner padding and border in Firefox 4+ for the button tag. */
@@ -307,7 +349,7 @@
 
 @media only screen and (min-width: 641px) {
   .remodal {
-    max-width: 700px;
+    max-width: 500px;
   }
 }
 

@@ -1,3 +1,66 @@
+
+$(function(){
+    var pachiTimer = [];
+    var pachiCount = [];
+    var pachiStart = [];
+    var pachiWidth = [];
+
+    function pachiSet(layer, num, pachi){
+        pachiWidth[num] = $('img.chara' + num + '_base').width();
+
+        $('.layer.' + layer + '_fore').css({
+            "width" : pachiWidth[num],
+            "overflow": "hidden"
+        });
+
+        // timer
+        pachiStart[num] = false;
+
+        if(pachi == true && pachiStart[num] == false){
+            pachiStart[num] = true;
+            pachiTimerStart(num);
+        }
+    }
+
+    function pachiTimerStart(num){
+        pachiCount[num] = 0;
+        $('img.chara' + num + '_eye').css({"margin-left": 0});
+
+        pachiWidth[num] = $('img.chara' + num + '_base').width();
+
+        if(pachiStart[num] == false){
+            pachiStart[num] = true;
+            pachiTimer[num] = setInterval(function(){
+            $('img.chara' + num + '_eye').css({"margin-left": -pachiWidth[num]*pachiCount[num]});
+            pachiCount[num] ++;
+            if(pachiCount[num] >= 5) pachiTimerStop(num);
+            },150);
+        }
+    }
+
+    function pachiTimerStop(num){
+        clearInterval(pachiTimer[num]);
+        pachiStart[num] = false;
+
+        var min = 1 ;
+        var max = 5 ;
+        var time = Math.floor( Math.random() * (max + 1 - min) ) + min;
+        time *= 1000;
+
+        setTimeout(function(){
+        pachiTimerStart(num);
+        },time);
+    }
+
+    function pachiTimerRemove(num){
+        clearInterval(pachiTimer[num]);
+        pachiStart[num] = false;
+    }
+
+});
+
+//-------------------------------------------------------------------------------------
+
 function object(o) {
   var f = object.f, i, len, n, prop;
   f.prototype = o;
@@ -137,4 +200,3 @@ $(function(){
 TYRANO.init();
     
 });
-
