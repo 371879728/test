@@ -30,12 +30,12 @@
 
 ;このゲームで登場するキャラクターを宣言
 ;akane
-[chara_new  name="akane" storage="chara/akane/normal.png" jname="あかね"  ]
+[chara_new  name="兔" storage="chara/akane/normal.png" jname="兔"  ]
 ;キャラクターの表情登録
-[chara_face name="akane" face="angry" storage="chara/akane/angry.png"]
-[chara_face name="akane" face="doki" storage="chara/akane/doki.png"]
-[chara_face name="akane" face="happy" storage="chara/akane/happy.png"]
-[chara_face name="akane" face="sad" storage="chara/akane/sad.png"]
+[chara_face name="兔" face="angry" storage="chara/akane/angry.png"]
+[chara_face name="兔" face="doki" storage="chara/akane/doki.png"]
+[chara_face name="兔" face="happy" storage="chara/akane/happy.png"]
+[chara_face name="兔" face="sad" storage="chara/akane/sad.png"]
 
 
 ;yamato
@@ -57,11 +57,11 @@
 誰だ！？[p]
 
 ;キャラクター登場
-[chara_show  name="akane"  ]
+[chara_show  name="兔"  ]
 #?
 こんにちは。[p]
-私の名前はあかね。[p]
-#あかね
+私の名前は兔。[p]
+#兔
 もしかして、ノベルゲームの開発に興味があるの？[p]
 
 [glink  color="blue"  storage="scene1.ks"  size="28"  x="360"  width="500"  y="150"  text="はい。興味あります"  target="*selectinterest"  ]
@@ -70,22 +70,22 @@
 [s  ]
 *selectinterest
 
-[chara_mod  name="akane" face="happy"  ]
-#あかね
+[chara_mod  name="兔" face="happy"  ]
+#兔
 わー。興味あるなんて、嬉しいなー。[p]
 #
 ・・・・・[p]
 まぁ、作ってみたい気持ちはあるけど、むずかしいんでしょ？[p]
 プログラミングとかやったことないし、、、[p]
 
-[chara_mod name="akane" face="default"]
+[chara_mod name="兔" face="default"]
 
-#あかね
+#兔
 そんな君に、耳寄りな情報があるんだけど[p]
 ききたい？　ききたいよね？[p]
 #
 いや、べつに
-#あかね
+#兔
 [cm]
 [font size=40]
 [delay speed=160]
@@ -95,13 +95,13 @@
 
 #
 ・・・・[p]
-#あかね
+#兔
 ティラノスクリプトを使うと、簡単に本格的なノベルゲームが簡単に作れてしまうのよ。[p]
 #
 へぇー。それはちょっと興味あるね。[p]
 
-[chara_mod  name="akane" face="happy"  ]
-#あかね
+[chara_mod  name="兔" face="happy"  ]
+#兔
 ほ、ほんと！？[p]
 このゲームをプレイするだけで、ティラノスクリプトの機能を確認することができるから[p]
 ぜひ、最後までつきあってね[p]
@@ -111,13 +111,13 @@
 
 #
 つ、つまり？[p]
-#あかね
+#兔
 一度ティラノスクリプトで作ったゲームは多くの環境で動作させることができるってこと！[p]
 #
 へぇー。それはいいね。[p]
 せっかく作ったらたくさんの人に遊んでもらいたいもんね。[p]
 
-#あかね
+#兔
 ウィンドウズ用のPCアプリケーションはもちろん。[p]
 マック用のアプリケーションにだって対応するわよ。[p]
 あと、HTML5だから、ブラウザゲームとしても発表できるわよ。[p]
@@ -129,22 +129,22 @@
 でも、最近スマホが復旧してて、僕のサイトにもスマホで訪れる人が増えたんだけど[p]
 スマホからは遊べない？[p]
 
-#あかね
+#兔
 ティラノスクリプトで作ったゲームはスマートフォンからでも遊べるよ！[p]
 アイフォーン、アンドロイドはもちろん。アイパッドとかのタブレットでも問題ないわ。[p]
 #
 おぉー。[p]
 
-#あかね
+#兔
 AppStoreやGooglePlayに向けてアプリ化して販売することもできるから[p]
 #
 おぉぉ、、やっとの貧困生活から脱出できるかも[p]
-#あかね
+#兔
 まぁ、おもしろいゲームつくらないと、売れもしないけどな！[p]
 #
 くっ。。[p]
 
-#あかね
+#兔
 じゃあ、次に場面を移動してみるね[p]
 廊下に移動するよ[p]
 [bg  time="3000"  method="crossfade" storage="rouka.jpg"  ]
@@ -152,20 +152,20 @@ AppStoreやGooglePlayに向けてアプリ化して販売することもでき�
 #
 お、廊下に移動したね。[p]
 
-#あかね
+#兔
 寒いよぉ〜。はやく教室に戻ろう。[p]
 
 [bg  time="1000" method="slide"  storage="room.jpg" ]
 #
 あれ、今、場面の移動がちょっと違ったね。[p]
-#あかね
+#兔
 うん。急いでたからね。[p]
 ティラノスクリプトでは、いろいろな演出を加える事ができて[p]
 画面を切り替えるだけでも１０種類以上の演出がつかえるよ。[p]
 #
 ふむ。便利だ[p]
 
-#あかね
+#兔
 次にメッセージの表示方法を変えてみるね[p]
 ティラノスクリプトでは、今みたいなアドベンチャーゲームの他に[r]
 ビジュアルノベルのような全画面表示のゲームもつくれるよ。[p]
@@ -206,9 +206,9 @@ AppStoreやGooglePlayに向けてアプリ化して販売することもでき�
 ;メッセージボックスを元に戻す
 [position layer="message0" left=20 top=400 width=920 height=200 page=fore visible=true]
 
-@chara_show name="akane"
+@chara_show name="兔"
 
-#akane
+#兔
 メッセージボックスは、自分の好きな画像を使うこともできるよ[p]
 
 
