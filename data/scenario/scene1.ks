@@ -1,1934 +1,452 @@
+;ティラノスクリプトサンプルゲーム
+
 *start
 
-[bgmopt volume=100 ]
+[cm  ]
+[clearfix]
+[start_keyconfig]
 
-[macro name="mi"]
-[say chara="migi" kuchi="a"]
-[endmacro]
 
+[bg storage="room.jpg" time="100"]
 
-[macro name="hi"]
-[say chara="hidari" kuchi="a"]
-[endmacro]
+;メニューボタンの表示
+@showmenubutton
 
-[macro name="w"]
-[say chara="w" kuchi="a"]
-[endmacro]
+;メッセージウィンドウの設定
+[position layer="message0" left=160 top=500 width=1000 height=200 page=fore visible=true]
 
+;文字が表示される領域を調整
+[position layer=message0 page=fore margint="45" marginl="50" marginr="70" marginb="60"]
 
 
-;プリロード
-[preload storage="data/bgm/music.mp3"]
-[preload storage="data/bgm/music2.mp3"]
-[preload storage="data/bgm/music3.mp3"]
+;メッセージウィンドウの表示
+@layopt layer=message0 visible=true
 
-[preload storage="data/fgimage/fes/528.png"]
-[preload storage="data/fgimage/fes/amazon.jpg"]
-[preload storage="data/fgimage/fes/badge_1.png"]
-[preload storage="data/fgimage/fes/coin_more.png"]
-[preload storage="data/fgimage/fes/coin1.png"]
-[preload storage="data/fgimage/fes/comment.png"]
-[preload storage="data/fgimage/fes/creator.png"]
-[preload storage="data/fgimage/fes/dia.png"]
-[preload storage="data/fgimage/fes/fanart.png"]
-[preload storage="data/fgimage/fes/fes_badge.png"]
-[preload storage="data/fgimage/fes/fes1.png"]
-[preload storage="data/fgimage/fes/fes2.png"]
-[preload storage="data/fgimage/fes/fes3.png"]
-[preload storage="data/fgimage/fes/game.png"]
-[preload storage="data/fgimage/fes/heart.png"]
-[preload storage="data/fgimage/fes/news.png"]
-[preload storage="data/fgimage/fes/nui.png"]
-[preload storage="data/fgimage/fes/player.png"]
-[preload storage="data/fgimage/fes/sponsor.png"]
-[preload storage="data/fgimage/fes/sponsor2.png"]
-[preload storage="data/fgimage/fes/sponsor3.png"]
-[preload storage="data/fgimage/fes/sponsor4.png"]
-[preload storage="data/fgimage/fes/step1.png"]
-[preload storage="data/fgimage/fes/step2.png"]
-[preload storage="data/fgimage/fes/step3.png"]
-[preload storage="data/fgimage/fes/step5.png"]
-[preload storage="data/fgimage/fes/switch.png"]
-[preload storage="data/fgimage/fes/yell0.png"]
-[preload storage="data/fgimage/fes/yell1.png"]
-[preload storage="data/fgimage/fes/yell2.png"]
-[preload storage="data/fgimage/fes/yell3.png"]
-[preload storage="data/fgimage/fes/yell4.png"]
+;キャラクターの名前が表示される文字領域
+[ptext name="chara_name_area" layer="message0" color="white" size=28 bold=true x=180 y=510]
 
-[preload storage="data/fgimage/fes/maker1.png"]
-[preload storage="data/fgimage/fes/maker2.png"]
+;上記で定義した領域がキャラクターの名前表示であることを宣言（これがないと#の部分でエラーになります）
+[chara_config ptext="chara_name_area"]
 
-[preload storage="data/fgimage/fes/vfes1.png"]
-[preload storage="data/fgimage/fes/vfes2.gif"]
-[preload storage="data/fgimage/fes/fukubiki.gif"]
+;このゲームで登場するキャラクターを宣言
+;akane
+[chara_new  name="akane" storage="chara/akane/normal.png" jname="あかね"  ]
+;キャラクターの表情登録
+[chara_face name="akane" face="angry" storage="chara/akane/angry.png"]
+[chara_face name="akane" face="doki" storage="chara/akane/doki.png"]
+[chara_face name="akane" face="happy" storage="chara/akane/happy.png"]
+[chara_face name="akane" face="sad" storage="chara/akane/sad.png"]
 
 
+;yamato
+[chara_new  name="yamato"  storage="chara/yamato/normal.png" jname="やまと" ]
 
+#
+さて、ゲームが簡単に作れるというから、来てみたものの[p]
 
+誰もいねぇじゃねぇか。[p]
+……[p]
+帰るか。。。[p]
 
-[mask_off time=2000]
+[font  size="30"   ]
+#?
+ちょっとまったーーーーー[p]
+[resetfont  ]
 
+#
+誰だ！？[p]
 
-; //////////////////////////////////////////////////
+;キャラクター登場
+[chara_show  name="akane"  ]
+#?
+こんにちは。[p]
+私の名前はあかね。[p]
+#あかね
+もしかして、ノベルゲームの開発に興味があるの？[p]
 
-; カットインは、文字を出しつつ行う想定です。（トピック変更時に使う）
-; [cutin text="& ['ティラノ']"]のようにすれば、1行でもできます。というか何行でもできますが、何行まで使用される可能性があるかわからなかったので、今の所2行までしか想定していない作りになっています。
-; [cutin]で画面を覆い隠し、その間に画面を変更して、[cutin_out]で画面を隠していたものをとります。使い方としては、maskみたいなものです。
-[cutin text="& ['タップして開始']"]
-  ; 右上の半透明のやつ
-  [image layer="2" name="migiue_img" zindex="100" storage="bg/r.png" x="0" y="0" time="10" wait="true"]
-  ; キャラ表示
-  [hyouji chara="migi"]
-  [hyouji chara="hidari"]
-  
-  [p]
-  [playbgm storage="music.mp3" volume=30]
-  
-  [iscript]
-  	$(".migiuetext").text("ティラノフェス2021");
-  [endscript]
-
-[cutin_out]
-
-; 左上の半透明のやつ&日付
-[image layer="2" zindex="100" storage="bg/l.png" x="0" y="0" time="300" wait="false"]
-[mtext layer="2" name="highlight" text="開幕！" x=12 y=14 size=36 fadeout=false wait=false in_effect=fadeInLeft in_delay=30 in_delay_scale=1.5 color=white shadow=none wait="false"]
-
-;[manpu chara="hidari" name="kira"]
-;[manpu chara="migi" name="kira"]
-
-[ude chara="hidari" name="がお"]
-[ude chara="migi" name="がお"]
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="にこ"]
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="にこ"]
-[say chara="w" kuchi="a"]
-	がおー。
-[_p]
-
-[manpu name="hidari" manpu="none" ]
-[manpu name="migi" manpu="none" ]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="普通"]
-
-[say chara="w" kuchi="a"]
-[mayu_mabuta chara="migi" mayu="普通" mabuta="普通"]
-  
-  ようこそ、
-  [<y]ティラノゲームフェス２０２１[>] [r]
-  オープニングへ！
-  
-[_p]
-
-[ude chara="hidari" name="待機"]
-[ude chara="migi" name="待機"]
-
-; 定位置へ
-[chara_move name="migi" time="300" anim="true" wait="false" left="354" effect="easeInOutQuad"]
-[chara_move name="hidari" time="300" anim="true" wait="false" left="-354" effect="easeInOutQuad"]
-
-
-[migiue text="& ['オープニング']" ]
-  
-;■オープニング、あいさつ
-
-[mi]
-
-アドベンチャー・ノベルゲームの祭典[r]
-[<y]ティラノフェスの季節[>]がやってきたね！
-
-[_p]
-
-
-[manpu chara="hidari" name="picon"]
-[say chara="hidari" kuchi="a"]
-
-今年も、この日を迎えることができて嬉しいよ〜！
-
-[_p]
-
-
-[mi]
-このオープニングを最後まであそぶだけで
-[_p]
-
-[eye chara="hidari" name="普通"]
-
-
-[mi]
-ゲームフェスの楽しみ方が理解できるから[r]
-[ude chara="migi" name="よし"]
-絶対、最後までみてよね。
-[_p]
-
-[ude chara="hidari" name="えへん"]
-[hi]
-今年は新企画がもりだくさんだぞ。
-[_p]
-
-[ude chara="migi" name="ふむ"]
-[mi]
-そして、今年も素敵な作品が[r]
-ティラノフェスに届いているよ！
-[_p]
-
-[mi]
-さっそく、フェス参加作品数を発表するよ！
-[_p]
-
-[hi]
-モニターに注目！
-[_p]
-
-; ディスプレイ画像
-[image layer="1" zindex="10" name="display" storage="bg/display.png" x="276" y="-480" time="10" wait="true"]
-; ディスプレイに映す画像は、全面画像の場合、690×444にするとちょうど中央になります。xyも以下の通りで中央です。
-[image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="& -480+18" width="690" height="444" time="10" wait="true"]
-
-[anim name="display" top="+=492" time="300" effect="easeOutBack"]
-
-
-[eye chara="hidari" name="横"]
-[eye chara="migi" name="横"]
-
-;@jump target="dev"
-
-
-;■ことしの参加作品数
-
-[mi]
-今年のフェス参加数はーーーー。
-[_p]
-
-[playse storage="roll.mp3" volume=50 wait=false]
-[wse]
-[playse storage="roll_fin.mp3" volume=50 wait=false]
-
-
-[ude chara="migi" name="こちら"]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/528.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-[mi]
-新作ゲームが[<y]５２８[>]作品！！
-[_p]
-
-[migiue text="&['速報：528作品が参加！']" ]
-
-
-[playse storage="kansei.mp3" wait=false]
-[ude chara="hidari" name="拍手"]
-[manpu chara="hidari" name="picon"]
-
-[hi]
-ええっ！！ すごい！！
-[_p]
-
-[ude chara="migi" name="えへん"]
-  
-[mi]
-ことしも素敵な作品がたくさんエントリーしてくれたんだよ。
-[_p]
-
-[eye chara="hidari" name="普通"]
-[manpu chara="hidari" name="ase"]
-[mayu_mabuta chara="hidari" mayu="しゅん" mabuta="普通"]
-   
-[hi]
-世界的にみても、最大規模の開発コンテストだね！！
-[_p]
-
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="普通"]
-[mayu_mabuta chara="migi" mayu="普通" mabuta="にこ"]
-
-[mi]
-ゲームを完成させて公開するというのは[r]
-本当に大変なことなんだよ！
-[_p]
-
-  
-[mi]
-これだけの作品が一同に集まれたことは[r]
-すごいことだね！
-[_p]
-
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="にこ"]
-[ude chara="hidari" name="拍手"]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="普通"]
-[ude chara="migi" name="拍手"]
-
-[playse storage="kansei.mp3" wait=false]
-
-[w]
-フェス参加の皆様、お疲れさまでした！！
-[_p]
-
-
-[mayu_mabuta chara="migi" mayu="普通" mabuta="普通"]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="普通"]
-  
-
-[mi]
-さっそく参加作品を紹介するよ。
-[_p]
-
-[migiue text="&['フェス作品入場']" ]
-
-
-[chara_move name="migi" time="100" anim="true" wait="false" left="394" effect="easeInOutQuad"]
-
-
-[eye chara="hidari" name="横"]
-[eye chara="migi" name="横"]
-
-[ude chara="migi" name="どうぞ" free="taiki"]
-[ude chara="hidari" name="どうぞ" free="taiki"]
-
-
-[iscript]
-
-$(".migiue_img").css("opacity",0);
-$(".migiue_sub").css("opacity",0);
-
-[endscript]
-
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/fes1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-[playse storage="kansei.mp3" wait=false]
-
-[mi]
-
-気になる作品はみつかったかな？
-
-[_p]
-
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/fes2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-
-[hi]
-
-
-[manpu chara="hidari" name="ase"]
-[eye chara="hidari" name="横"]
-[say chara="hidari" kuchi="u"]
-
-ちょっと小さすぎない…！？[r]
-目を凝らさないと…。
-
-[_p]
-
-[playse storage="kansei.mp3" wait=false]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/fes3.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-
-[mi]
-
-なんたって、５２８作品だからね！！[r]
-どれからあそぶか、迷うな〜♫
-
-[_p]
-
-[hi]
-
-ぼくは、直感でみつけるのも好きなのだ！[r]
-あとで、ゆっくり探してみる。
-[_p]
-
-
-[mi]
-
-[eye chara="hidari" name="普通" ]
-[eye chara="migi" name="普通" ]
-
-フェスに参加してくれて、本当にありがとう！
-
-[_p]
-
-[playse storage="kansei.mp3" wait=false]
-
-
-[iscript]
-
-$(".migiue_img").css("opacity",1);
-$(".migiue_sub").css("opacity",1);
-
-[endscript]
-
-
-[chara_move name="migi" time="100" anim="true" wait="false" left="354" effect="easeInOutQuad"]
-
-[ude chara="hidari" name="待機"]
-[ude chara="migi" name="待機"]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/badge_1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-
-[mi]
-フェス参加者のみなさんへ[r]
- [<y]『TGF2021エントリー達成』[>]バッジを贈呈したよ。
-[_p]
-
-[hi]
-ティラノフェス２０２１に参加した証だね！！
-[_p]
-
-[cutin text="& ['フェスの楽しみ方']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-  [migiue text="&['コメントキャンペーン']" ]
-
-[cutin_out]	
-
-[mi]
- 続いては、
- [<y]『フェスの楽しみ方』[>]を紹介していくよ。
-[_p]
-
-[mi]
-これをみれば、初参加の人でもバッチリ理解できるよ。
-[_p]
-
-[hi]
-それは助かるぞ！
-[_p]
-
-
-[mi]
-
-まず、ティラノフェスといえば、、[r]
-[<y]「コメントキャンペーン」[>]が今年も実施されるよ！
-
-[_p]
-
-[mi]
-ティラノフェスの作品は、プレイしたらぜひ[r]
-コメントを残してほしいんだ。
-[_p]
-
-[mi]
-まず、ティラノフェス２０２１専用の特設サイトを見てみよう。
-[_p]
-
-[ude chara="hidari" name="こちら"]
-[eye chara="hidari" name="横"]
-  
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/step1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-メニュー[<y]「フェス」[>]のリンクをクリックしてね。
-[_p]
-
-[ude chara="hidari" name="待機"]
-
-[mi]
-フェスの参加作品を効率的に探して[r]
-あそぶことができるよ
-[_p]
-
-[eye chara="hidari" name="普通"]
-[eye chara="migi" name="横"]
-
-[hi]
-プレイ時間で検索したり[r]
-コメント済かどうかで絞り込むこともできたよ。
-[_p]
-
-[mi]
-長編ゲームは、ダウンロード版であそぶのがおすすめ。
-[_p]
-
-[mi]
-逆に、短編ゲームならブラウザでサクッとあそんでみてね。
-[_p]
-
-[eye chara="hidari" name="普通"]
-[eye chara="migi" name="横"]
-
-
-[mi]
-ゲームを遊び終わったら、ぜひ拍手を送ってあげてね！！
-[_p]
-
-[eye chara="hidari" name="横"]
-[eye chara="migi" name="普通"]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/step2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[ude chara="migi" name="よし"]
-[manpu chara="migi" name="heart"]
-
-[mi]
-ここ！ここの「拍手する」ボタンをポチ！　
-[_p]
-
-[hi]
-[<y]あそんだよ！[>]という報告が作者さんの力になるんだから。
-[_p]
-
-
-[mi]
-そして、拍手のあとは、作品にコメントも残してほしいな。
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/step3.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-その時、ツイッターにも同時につぶやくに、チェックを入れてると
-[_p]
-
-[mi]
-なんと
-[_p]
-
-[hi]
-なんと？
-[_p]
-
-[mi]
-なんと、抽選で
-[_p]
-
-[hi]
-抽選で？
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/game.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[ude chara="migi" name="えへん"]
-  
-[mi]
-1名様に、お好きなゲーム機本体 か Padが！
-[_p]
-
-[playse storage="kansei.mp3" wait=true]
-
-[ude chara="migi" name="拍手"]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/amazon.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-さらに、10名様にAmazonギフトカード１０００円分が、抽選であたる！
-[_p]
-
-[playse storage="kansei.mp3" wait=true]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/nui.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[manpu chara="hidari" name="heart"]
-
-[mi]
-
-フェス参加者には、ダブルチャンスで、限定ぬいぐるみ+ギフトカード１０００円！
-
-[_p]
-
-[ude chara="hidari" name="がお"]
-[manpu chara="hidari" name="kira"]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="にこ"]
-
-[hi]
-うおお！
-ゲーム機は「ぷれすてふぁいぶ」選んでもいいの！？
-[_p]
-
-[ude chara="migi" name="待機"]
-[eye chara="migi" name="横"]
-
-
-[mi]
-い、いいけど。
-[_p]
-
-[ude chara="hidari" name="えへん"]
-[manpu chara="hidari" name="heart"]
-
-[hi]
-しゃらーい！
-[_p]
-
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="普通"]
-
-[mi]
-ツイートはつぶやいた回数分[r]
-エントリーできるから
-[_p]
-
-[mi]
-たくさん遊んで感想をつぶやいたほうが当選確率は大幅アップだよ！！
-[_p]
-
-[hi]
-感想ツイートしまくるよ！！
-[_p]
-
-[ude chara="migi" name="待機"]
-[eye chara="migi" name="普通"]
-
-[mi]
-そして、ここからが、さらにすごい。
-[_p]
-
-
-[anim name="display" top="-=492" time="300" effect="easeOutBack"]
-[chara_move name="hidari" time="1000" anim="true" wait="true" left="-660" effect="easeInOutQuad"]
-
-;背景を暗く
-[filter layer="base" brightness="30"]
-[filter layer="0" name="bgbase" brightness="30" ]
-
-;フェスコメントの解説。
-
-[image name="kanban_1" layer=1 storage="fes/player.png" top=60 left=30 width=400 time=20 visible=true ]
-
-[mi]
-こちら、ゲームを遊んだ人
-[_p]
-
-
-[image name="kanban_2" layer=1 storage="fes/creator.png" top=60 left=530 width=400 time=20 visible=true ]
-
-[mi]
-こちら、そのゲームを作った作者さん[_p]
-
-[image name="comment" layer=1 storage="fes/comment.png" top=250 left=250 ]
-
-[mi]
-感想を[_p]
-
-[anim name="comment" left="+=300" time=2000 ]
-
-[eye chara="migi" name="横"]
-
-[mi]
-作品に残すと。。。[_p]
-
-[free layer=1 name="comment"]
-ゲームの作者さんから[p]
-
-[image name="dia" layer=1 storage="fes/dia.png" top=250 left=550 ]
-
-[mi]
-お礼として[_p]
-
-[anim name="dia" left="-=300" time=2000 ]
-ダイア玉というアイテムが貰える事があるよ。[p]
-
-[eye chara="hidari" name="普通"]
-
-[image name="dia" layer=1 storage="fes/dia.png" top=150 left=80 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=320 left=100 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=350 left=200 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=280 left=250 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=450 left=120 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=390 left=180 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=340 left=20 ]
-このダイア玉をたくさん集めると[p]
-
-[eye chara="hidari" name="横"]
-
-
-限定のクオカードや、限定バッジなんかが当たるから[p]
-ダイア玉集めにも、ぜひ、チャレンジしてみてね。[p]
-
-[eye chara="hidari" name="普通"]
-
-[free layer=1 name="dia"]
-
-
-[mi]
-さらに〜[_p]
-
-
-[image name="comment" layer=1 storage="fes/comment.png" top=250 left=250 ]
-
-
-[mi]
-
-コメントと一緒に[l]
-[image name="fanart" layer=1 storage="fes/fanart.png" top=150 left=50 ]
-[free layer=1 name="kanban_1"]
-ファンアートを[_p]
-
-[eye chara="hidari" name="横"]
-
-[anim name="comment" left="+=300" time=2000 ]
-;[anim name="kanban_1" left="+=300" time=2000 ]
-
-
-[mi]
-送ってあげると、、、[_p]
-
-[image name="dia" layer=1 storage="fes/dia.png" top=250 left=550 ]
-[image name="dia" layer=1 storage="fes/dia.png" top=300 left=570 ]
-[anim name="dia" left="-=300" time=2000 ]
-
-
-[eye chara="hidari" name="普通"]
-
-[mi]
-ダイア玉が２個もらえます！！！[_p]
-
-
-[mi]
-ファンアートを送ってあげると、ダイア玉集めが大幅に捗るね！！[_p]
-
-[freeimage layer=1]
-
-[filter layer="base" brightness=100 ]
-[filter layer="0" name="bgbase" brightness=100 ]
-
-[chara_move name="hidari" time="300" anim="true" wait="false" left="-354" effect="easeInOutQuad"]
-
-[eye chara="hidari" name="横"]
-
-[mi]
-えっ、ちょっとむずかしい？[_p]
-
-[mi]
-そんなあなたに。[r]
-このオープニングゲームにも[_p]
-
-
-[mi]
-拍手、コメント、ファンアートを贈れるのだ！！[_p]
-
-[eye chara="hidari" name="普通"]
-
-[mi]
-ぜひ、フェスの応援メッセージや応援イラストを送ってくださいね！[_p]
-
-
-[mi]
-もちろん、キャンペーンへの参加やダイア玉も貰えるから
-[_p]
-
-[mi]
-まずは練習のつもりで、気軽にコメントしてみてね。[_p]
-
-
-[mi]
-あ、あと気をつけてほしいのは[r]
-
-[manpu chara="migi" name="gan"]
-
-チートとか不正は絶対わかるから、やめてね。[_p]
-
-[mi]
-判明したら、わたしが回収しにいかなきゃだから。。。
-[_p]
-
-
-;*dev
-
-
-[cutin text="& ['ニュース・応援']"]
-	
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [image layer="1" zindex="10" name="display" storage="bg/display.png" x="276" y="12" time="10" wait="true"]
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[migiue text="&['ノベコレニュース']" ]
-
-[cutin_out]	
-
-[mi]
-続いて、フェスを更に楽しむ要素を紹介するよ！
-[_p]
-
-[hi]
-いろいろ、新しいチャレンジもあるみたいね。
-[_p]
-
-
-[anim name="display" top="12" time="300" effect="easeOutBack"]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/news.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-
-[mi]
-
-[<y]『ノベコレニュース』[>]をみてコインを集めよう。
-[_p]
-
-[ude chara="hidari" name="よし"]
-[ude chara="migi" name="よし"]
-  
-
-[mi]
-ノベコレニュースは私達が毎日[r]
-最新のゲーム情報を発信するよ。
-[_p]
-
-[hi]
-みんなのファンアートやコメントも[r]
-積極的に紹介するから
-[_p]
-
-[hi]
-絶対、毎日見てほしいな。
-[_p]
-
-[mi]
-フェス作品以外も取り上げていくよ！[r]
-新しい作品との出会いの場所にしていきたいな。
-[_p]
-
-[hi]
-うむ。がんばるぞ。
-[_p]
-
-[mi]
-そして、ノベコレニュースを見ると[r]
-１日１回[<y]ログインボーナス[>]がもらえるぞ！
-
-[_p]
-
-[ude chara="migi" name="待機"]
-[ude chara="hidari" name="ふむ"]
-
-[hi]
-おぉ、ログインボーナスで何がもらえるんです？
-[_p]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/coin1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[ude chara="migi" name="どうぞ" free="taiki"]
-
-[mi]
-それはこちら、、、。[r]
-[<y]ノベルコイン！！[>]
-[_p]
-
-[migiue text="&['ノベルコイン']" ]
-
-
-[ude chara="migi" name="よし"]
-[mi]
-毎日ニュースをみて、コインを集めよう！
-[_p]
-
-
-[ude chara="hidari" name="えへん"]
-[manpu chara="hidari" name="kira"]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="にこ"]
-
-[hi]
-おほー！[r]
-集めてなにかいいことあるの？
-[_p]
-
-[manpu chara="hidari" name="none"]
-
-
-[cutin text="& ['コインで応援！']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  ;[image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[cutin_out]	
-
-[mi]
-ニュースにアクセスしてコインを集めるよね。
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/coin_more.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-その集めたコインを使って[r]
-作品を応援できるんだ
-[_p]
-
-[hi]
-なるほど。自分の推し作品を[r]
-コインをつかって応援できるってこと？
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell0.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-そうそう！作品ページの[r]
-[<y]『コインで作品を応援する』[>]をクリックしてね。
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-応援の種類が選択して[r]
-推しの作品をプッシュしてください！
-[_p]
-
-[hi]
-コインの枚数によって[r]
-効果が変わるのかな？
-[_p]
-
-[mi]
-その通り！
-[_p]
-
-[mi]
-まずは、コイン１枚を消費する[r]
-[<y]『ピックアップ』[>]
-[_p]
-
-[mi]
-これは作品一覧で[r]
-枠に色がついて目立つようになるよ。
-[_p]
-
-[hi]
-目にとまるとアクセス数が伸びそうだね。
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[mi]
-続いては、コイン３枚を消費する[r]
-[<y]『ニュースで紹介』[>]
-[_p]
-
-[mi]
-翌日のノベコレニュースで[r]
-応援コメントと一緒に紹介するよ！
-[_p]
-
-[hi]
-おぉー。これは記念に一度は応援されてみたいね。
-[_p]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell3.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[mi]
-次は、コイン５枚を消費する[r]
-[<y]『トップに推薦』[>]
-[_p]
-
-[mi]
-これは、ノベコレの一番目立つところに[r]
-作品を表示できる応援だよ。
-[_p]
-
-[hi]
-トップページのくるくる回ってるところだね。[r]
-これは効果高そう！
-[_p]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell4.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-最後はコイン５枚を消費する[r]
-[<y]『ダイア玉ブースト』[>]
-[_p]
-
-[mi]
-この応援はスポンサー限定なの。
-[_p]
-
-[mi]
-この応援を行うと[r]
-４８時間、ダイア玉が１個増量されるよ。
-[_p]
-
-[hi]
-つまり、ブーストされている作品をあそぶと[r]
-効率よくダイア玉が集まるということ？
-[_p]
-
-[mi]
-
-そうそう。[r]
-特に長編ゲームは手を出しにくい場合もあるけど
-[_p]
-
-[mi]
-ダイア玉ブーストしてあげることで[r]
-あそぶキッカケになったらいいと思う。
-[_p]
-
-[hi]
-たしかに、長編作品は最初、少し腰が重いけど[r]
-プレイ後の満足感はすごいからね！
-[_p]
-
-[mi]
-ダイア玉ブーストされている作品はチャンスなので
-ぜひ、遊んでみてくださいね。
-[_p]
-
-[mi]
-ちなみに、ダイア玉ブースト状態時に[r]
-拍手を完了することで権利が付与されるよ。
-[_p]
-
-[eye chara="hidari" name="横"]
-
-[say chara="hidari" kuchi="u"]
-あのー。[r]
-このコインって貯めて、なにかに交換とか、、、。
-[_p]
-
-[eye chara="migi" name="横"]
-
-[say chara="migi" kuchi="u"]
-できないわよ。
-[_p]
-
-[manpu chara="hidari" name="gan"]
-
-[say chara="hidari" kuchi="u"]
-あ、そうなんだ。
-[_p]
-
-[mi]
-だから、ニュースで作品みつけて、あそんで、[r]
-コインをどんどん使って応援する。これが醍醐味だよ！
-[_p]
-
-[ude chara="hidari" name="よし"]
-[hi]
-コイン貯金しても意味ないということだね！
-[_p]
-
-[mi]
-そう。[r]
-コインは作品の応援にしかつかえません！
-[_p]
-
-[fadeoutbgm]
-
-[wait time=1000]
-
-;*dev
-
-[cutin text="& ['バーチャルフェス']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[playbgm storage="music2.mp3" volume=30 ]
-
-[migiue text="&['仮想空間で作品を探そう']" ]
-
-
-[cutin_out]	
-
-
-[mi]
-さぁ、続いては[r]
-[<y]バーチャルフェス[>]を紹介するよ！
-
-[_p]
-
-[hi]
-バーチャルフェス？
-[_p]
-
-[mi]
-会場となる「ティラノアリーナ」の様子を見てみよう。
-[_p]
-
-[ude chara="migi" name="こちら"]
-[eye chara="migi" name="横"]
-
-[eye chara="hidari" name="横"]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/vfes1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[playse storage="kansei.mp3" wait=true]
-
-[hi]
-おぉ、素敵な会場だね！
-[_p]
-
-[mi]
-この会場をつかって開催されるのが、[r]
-バーチャルフェス！
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/vfes2.gif" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[wait time=4000]
-
-[mi]
-バーチャル空間に配置されたブースを[r]
-自由に歩きながら作品を探すことができるよ！
-[_p]
-
-[playse storage="kansei.mp3" wait=true]
-
-[ude chara="hidari" name="拍手"]
-[manpu chara="hidari" name="heart"]
-
-[hi]
-おぉ、これは、、おもしろいね！
-[_p]
-
-[mi]
-会場を探索しながら新しい作品との出会い[r]
-そして、交流を楽しめるよ。
-[_p]
-
-[eye chara="hidari" name="普通"]
-[ude chara="hidari" name="よし"]
-
-[hi]
-行く！今から行く！
-[_p]
-
-[manpu chara="migi" name="ase"]
-
-[mi]
-ちょっ、ちょっとまって。[r]
-まだ、開場してないよ！
-[_p]
-
-[mi]
-バーチャルフェスは[r]
-１１月、オープン予定だよ。
-[_p]
-
-[manpu chara="hidari" name="heart"]
-
-[hi]
-ガッテンだい！[r]
-たのしみー♫
-[_p]
-
-;;;;;;;;;;;;;;;;;;;;;;;;ふくびき会場
-
-[cutin text="& ['ふくびき会場']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[migiue text="&['アイテムをコレクション']" ]
-
-
-[cutin_out]	
-
-
-[mi]
-さぁ、続いては新システム[r]
-[<y]ふくびき会場[>]を紹介するよ！
-
-[_p]
-
-[hi]
-ふくびき？
-[_p]
-
-[mi]
-あかねさーん。
-[_p]
-
-[ude chara="migi" name="こちら"]
-[eye chara="migi" name="横"]
-
-[eye chara="hidari" name="横"]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/fukubiki.gif" x="& 276+38" y="30" width="670" height="444" time="10" wait="true"]
-
-[playse storage="kansei.mp3" wait=true]
-
-[manpu chara="hidari" name="heart"]
-  
-[hi]
-わぁ！？ あかねさんだ〜。[r]
-かわいい！
-[_p]
-
-
-[mi]
-今年はノベコレとバーチャルフェスが[r]
-お互いにリンクする仕掛けがあるよ。
-[_p]
-
-
-[ude chara="hidari" name="ふむ"]
-[say chara="hidari" kuchi="u"]  
-  
-[hi]
-と、いいますと…？
-[_p]
-
-[mi]
-
-このふくびき会場でもらえるアイテムは[r]
-バーチャルフェスで使える場合があるよ。
-
-[_p]
-
-[say chara="hidari" kuchi="o"]  
-[manpu chara="hidari" name="picon"]
-  
-[hi]
-えっ、アイテムをバーチャルフェスに[r]
-持ち込めるの？
-[_p]
-
-
-[ude chara="migi" name="待機"]
-  
-
-[mi]
-
-そうそう。
-そのアイテムがないと[r]
-
-[_p]
-
-
-[mi]
-
-バーチャルフェスで立ち入れない場所なんかもあるみたい。
-
-[_p]
-
-[ude chara="hidari" name="がお"]
-[say chara="hidari" kuchi="a"]
-
-[hi]
-
-それは大変だー！[r]
-ふくびきさせてください！コインでいいの？
-
-[_p]
-
-
-[mi]
-
-いや。ふくびきを回すには[r]
-専用のふくびき券が必要なんだ…。
-
-[_p]
-
-[ude chara="migi" name="こちら"]
-  
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/ticket.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[ude chara="hidari" name="ふむ"]
-[say chara="hidari" kuchi="u"]
-  
-[hi]
-
-ぎゃーーー！[r]
-どこで手に入るんだよぉ！
-
-[_p]
-
-
-[manpu chara="migi" name="ase"]
-  
-[mi ]
-
-ちょっと、、、落ち着きなさい。
-
-[_p]
-
-
-[mi]
-
-今ある情報だと[r]
-バーチャルフェスの会場で見かけるらしいから。
-
-[_p]
-
-
-
-[mi]
-
-バーチャルフェスがオープンしたら[r]
-歩いて探してみようね
-[_p]
-
-
-
-[hi]
-
-ぐぬぬ[r]
-どのみち、もう少し待たないといけないのか。
-
-[_p]
-
-[eye chara="hidari" name="普通"]
-
-[hi]
-
-バーチャルフェスがオープンしたら[r]
-ふくびき開場へGOだね!
-
-[_p]
-
-;*dev
-
-[cutin text="& ['バーチャルメイカー']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[migiue text="&['みんなでゲーム制作']" ]
-
-[cutin_out]	
-
-
-[mi]
-さぁ、続いては新システム[r]
-[<y]バーチャルメイカー[>]を紹介するよ！
-
-[_p]
-
-[hi]
-
-バーチャルメイカー…[wait time=1000][r]
-ってなんです？
-
-[manpu chara="hidari" name="ase"]
-[ude chara="hidari" name="ふむ"]
-
-[_p]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/maker1.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-[ude chara="migi" name="こちら"]
-[eye chara="migi" name="横"]
-[eye chara="hidari" name="横"]
-
-[mi]
-
-今年は参加者のみんなも[r]
-仮想空間にキャラクターやモノを設置できるの。
-
-[_p]
-
-
-[ude chara="hidari" name="えへん"]
-
-[hi]
-
-えっ。もしかして[r]
-自分のブースもカスタマイズできたり、、、
-
-[_p]
-
-[mi]
-
-もちろんよ！[r]
-個性的なブースが見れるかもしれないね！
-
-[_p]
-
-
-[ude chara="hidari" name="拍手"]
-[manpu chara="hidari" name="heart"]
-
-[hi]
-
-うわー。楽しみだね。
-
-[_p]
-
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/maker2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-
-配置できるのは「もの」だけじゃなくて[r]
-[<y]会話[>]も設置できるの。
-
-[_p]
-
-[ude chara="hidari" name="待機"]
-[manpu chara="hidari" name="gan"]
-
-[hi]
-
-えっ、自分の分身を[r]
-バーチャルフェスに残しておくことが！？
-
-[_p]
-
-[mi]
-
-そうそう。みんなでひとつの巨大なバーチャルノベルをつくってみない？
-
-[_p]
-
-[ude chara="hidari" name="ふむ"]
-
-[hi]
-
-俺たちは仮想空間でも創り続けるのか…。
-
-[_p]
-
-[ude chara="migi" name="どうぞ" free="taiki"]
-
-[mi]
-
-それがゲームクリエイターってやつよ！
-
-[_p]
-
-[ude chara="hidari" name="がお"]
-
-[hi]
-
-さすがに偏見だよ！
-
-[_p]
-
-
-[mi]
-
-ふくびきとバーチャルフェスは[r]
-[<y]１１月オープン予定[>]なので、気をつけてね。
-
-[_p]
-
-
-[cutin text="& ['スポンサー募集']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-
-  [migiue text="&['フェスをもっと楽しむ']" ]
-
-
-[cutin_out]	
-
-[mi]
-続いて、ちょっと、お知らせを、、、。[_p]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/sponsor.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-[wait time=1000]
-
-[mi]
-ティラノゲームフェス２０２１の[r]
-[<y]応援スポンサー[>]を募集中です！！
-[_p]
-
-[mi]
-スポンサーになっていただくと特典が盛りだくさん！
-[_p]
-
-[ude chara="migi" name="こちら"]
-[eye chara="migi" name="横"]
-
-[eye chara="hidari" name="横"]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/sponsor2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-ひとつ、スポンサー限定デザインのピンバッジを贈呈（実物を郵送）
-[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/yell4.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-ふたつ、お気に入りの作品を「ダイア玉ブースト」[r]
-一番強力な応援が開放されるぞ！
-[_p]
-
-
-[mi]
-みっつ、スポンサーとして、お名前（PN）をエンディングと公式サイトにクレジット！[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/sponsor3.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-よっつ、フェス２０２１記念ポストカードを進呈。
-[_p]
-
-[mi]
-更に最後！！[_p]
-
-[free layer="1" name="display_img" time="10" wait="true"]
-[image layer="1" zindex="11" name="display,display_img" storage="fes/sponsor4.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-[mi]
-なんと、スポンサーは自分で「〇〇賞」を作品に贈ることができます！
-[_p]
-
-[ude chara="hidari" name="拍手"]
-[manpu chara="hidari" name="heart"]
-
-[mi]
-「〇〇賞」の名前は自分で考えることができるよ。
-[_p]
-
-[mi]
-大好きな作品の作者さんや、特に素晴らしいと感じた作品に
-[_p]
-
-[mi]
-コメントを添えて最大級の賛辞を贈ってあげてください。
-[_p]
-
-[ude chara="hidari" name="待機"]
-
-[mi]
-応援スポンサーは１口「￥３６００」となっております。。。
-[_p]
-
-[mi]
-収入は、ティラノゲームフェスのサーバー費や運営費に充てさせていただきます。
-[_p]
-
-[mi]
-支援していただけると、
-[_p]
-
-[mi]
-賞品が豪華になったり
-[_p]
-
-[mi]
-キャンペーンを強化したり
-[_p]
-
-[mi]
-来年もフェスを継続できると思うのです。。。
-[_p]
-
-[ude chara="migi" name="よし"]
-
-[hi]
-どうか、みんなのチカラを貸してください。
-[_p]
-
-;[選択肢]
-
-[filter layer="all" brightness="30" ]
-
-
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="350"  width="600"   y="200"  text="応援スポンサーの登録を見てみる"  target="*yes"  ]
-[glink  color="btn_26_black"  storage="scene1.ks"  size="24"  x="350"  width="600"   y="320"  text="今はいい"  target="*no"  ]
+[glink  color="blue"  storage="scene1.ks"  size="28"  x="360"  width="500"  y="150"  text="はい。興味あります"  target="*selectinterest"  ]
+[glink  color="blue"  storage="scene1.ks"  size="28"  x="360"  width="500"  y="250"  text="興味あります！"  target="*selectinterest"  ]
+[glink  color="blue"  storage="scene1.ks"  size="28"  x="360"  width="500"  y="350"  text="どちらかと言うと興味あり"  target="*selectinterest"  ]
 [s  ]
+*selectinterest
 
-*yes
+[chara_mod  name="akane" face="happy"  ]
+#あかね
+わー。興味あるなんて、嬉しいなー。[p]
+#
+・・・・・[p]
+まぁ、作ってみたい気持ちはあるけど、むずかしいんでしょ？[p]
+プログラミングとかやったことないし、、、[p]
 
-[web url="https://tyrano.booth.pm/items/3262751"]
+[chara_mod name="akane" face="default"]
 
-@jump target=*common
-
-*no
-
-*common
-
-[fadeoutbgm time=3000 ]
-[wait time=3000]
-
-[playbgm storage="music3.mp3" volume=30 ]
-
-[filter layer="all" brightness="100" ]
-
-[cutin text="& ['フェス２０２１','開幕宣言']"]
-
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  
-  [free layer="1" name="display_img" time="10" wait="true"]
-  [image layer="1" zindex="11" name="display,display_img" storage="bg_black2.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-
-　[migiue text="&['いよいよフェス開幕']" ]
-
-
-[cutin_out]	
-
-
-[mi]
-さあ、これでゲームフェスの説明は終わりだよ。
-[_p]
-
-[ude chara="hidari" name="よし"]
-
-[hi]
-色々な楽しみ方ができそうだな。[r]
-あそぶぞー！
-[_p]
-
-[mi]
-運営側も初めてのチャレンジが多いから[r]
-柔軟に対応していくよ。
-[_p]
-
-[hi]
-困ったことがあったら[r]
-いつでも連絡くれよな！
-[_p]
-
-
-[mi]
-
-そして、今年のフェスは公式の受賞作の選定がない代わりに
-
-[_p]
-
-[mi]
-
-ティラノフェス内に限定バッジが隠されてるよ。
-
-[_p]
-
-[ude chara="hidari" name="こちら"]
-
-[display_turn_start]
-    [free layer="1" name="display_img" time="10" wait="true"]
-    [image layer="1" zindex="11" name="display,display_img" storage="fes/fes_badge.png" x="& 276+18" y="30" width="690" height="444" time="10" wait="true"]
-[display_turn_end]
-
-
-[hi]
-詳しい入手方法は、私たちもわからないの。[r]
-[_p]
-
-[hi]
-でも、バーチャルフェスで情報を集めたり[r]
-作品を遊んでダイア玉を集めることで
-[_p]
-
-[mi]
-何かが見えてくるんじゃないかな…。
-[_p]
-
-[mi]
-フィナーレは来年の２月を予定しているよ。
-[_p]
-
-[mi]
-それまで、コメントやキャンペーンは続くので[r]
-ぜひぜひ、盛り上がりましょう！！
-[_p]
-
-[ude chara="hidari" name="待機"]
-
-[hi]
-ティラノゲームフェス、、、、一緒に楽しもうね！
-[_p]
-
-
-[mi]
-それじゃあ、、、。
-[_p]
-
-
-[ude chara="migi" name="どうぞ" free="taiki"]
-[ude chara="hidari" name="どうぞ" free="taiki"]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="ウィンク"]
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="ウィンク"]
-
-[say chara="w" kuchi="a"]
-
+#あかね
+そんな君に、耳寄りな情報があるんだけど[p]
+ききたい？　ききたいよね？[p]
+#
+いや、べつに
+#あかね
+[cm]
 [font size=40]
-ティラノゲームフェス２０２１[r]
-開幕です！
+[delay speed=160]
+ティラノスクリプトー[p]
+[delay speed=30]
 [resetfont]
 
-[playse storage="kansei.mp3" wait=true]
+#
+・・・・[p]
+#あかね
+ティラノスクリプトを使うと、簡単に本格的なノベルゲームが簡単に作れてしまうのよ。[p]
+#
+へぇー。それはちょっと興味あるね。[p]
 
-[_p]
+[chara_mod  name="akane" face="happy"  ]
+#あかね
+ほ、ほんと！？[p]
+このゲームをプレイするだけで、ティラノスクリプトの機能を確認することができるから[p]
+ぜひ、最後までつきあってね[p]
 
-[fukidashi_del]
-  
-[wait time=31000 ]
-
-
-
-; カットインは1行もOK
-[cutin text="& ['その後']"]
-  [fukidashi_del]
-  [pose_reset chara="hidari"]
-  [pose_reset chara="migi"]
-  [migiue text="& ['おつかれさま会']"]
-
-  [bgmopt volume=10 ]
-  
-[cutin_out]
-
-[eye chara="migi" name="横"]
-
-[mi]
-ふー、、、。[r]
-今年もなんとか無事に開幕できたね・・・。
-[_p]
-
-[eye chara="hidari" name="横"]
-
-[hi]
-そうだね。[r]
-でもココからが本番だからね。
-[_p]
-
-[ude chara="migi" name="よし"]
-
-[mi]
-フェスの作品が、多くの人に届くように[r]
-がんばらないと。。。
-[_p]
-
-[hi]
-よし！。[r]
-私もたくさんあそぶぞ！
-[_p]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="にこ"]
-
-[mi]
-ふふふ。
-[_p]
-
-[manpu chara="hidari" name="picon"]
-[eye chara="hidari" name="普通"]
-
-[say chara="hidari" kuchi="u"]
-  
-あ！
-[_p]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="普通"]
-
-[manpu chara="migi" name="picon"]
-[eye chara="migi" name="普通"]
-
-[say chara="migi" kuchi="u"]
-  
-あ。
-[_p]
+まず、ティラノスクリプトの特徴として[font color="red"]「HTML5」[resetfont]で動作するよ[p]
 
 
-[say chara="migi" kuchi="u"]
-きみ、なにしてんの？[r]
-もうフェスは始まってるよ！
-[_p]
+#
+つ、つまり？[p]
+#あかね
+一度ティラノスクリプトで作ったゲームは多くの環境で動作させることができるってこと！[p]
+#
+へぇー。それはいいね。[p]
+せっかく作ったらたくさんの人に遊んでもらいたいもんね。[p]
 
-[say chara="hidari" kuchi="u"]
+#あかね
+ウィンドウズ用のPCアプリケーションはもちろん。[p]
+マック用のアプリケーションにだって対応するわよ。[p]
+あと、HTML5だから、ブラウザゲームとしても発表できるわよ。[p]
+ウェブサイトに貼り付けて遊んでもらえるから、気軽にゲームをプレイしてもらうことができるね。[p]
+主要なブラウザはすべてサポートしているから、安心してね。[p]
+#
+やるなぁ。。[p]
 
-はやく、みんなの作品を遊びにいきなさいよ！
+でも、最近スマホが復旧してて、僕のサイトにもスマホで訪れる人が増えたんだけど[p]
+スマホからは遊べない？[p]
 
-[_p]
+#あかね
+ティラノスクリプトで作ったゲームはスマートフォンからでも遊べるよ！[p]
+アイフォーン、アンドロイドはもちろん。アイパッドとかのタブレットでも問題ないわ。[p]
+#
+おぉー。[p]
 
-[fukidashi_del]
-  
+#あかね
+AppStoreやGooglePlayに向けてアプリ化して販売することもできるから[p]
+#
+おぉぉ、、やっとの貧困生活から脱出できるかも[p]
+#あかね
+まぁ、おもしろいゲームつくらないと、売れもしないけどな！[p]
+#
+くっ。。[p]
 
-[wait time=30000]
+#あかね
+じゃあ、次に場面を移動してみるね[p]
+廊下に移動するよ[p]
+[bg  time="3000"  method="crossfade" storage="rouka.jpg"  ]
 
-[say chara="hidari" kuchi="u"]
+#
+お、廊下に移動したね。[p]
 
-もー、しょうがないなー。[r]
-何がお望み？
+#あかね
+寒いよぉ〜。はやく教室に戻ろう。[p]
 
-[_p]
+[bg  time="1000" method="slide"  storage="room.jpg" ]
+#
+あれ、今、場面の移動がちょっと違ったね。[p]
+#あかね
+うん。急いでたからね。[p]
+ティラノスクリプトでは、いろいろな演出を加える事ができて[p]
+画面を切り替えるだけでも１０種類以上の演出がつかえるよ。[p]
+#
+ふむ。便利だ[p]
+
+#あかね
+次にメッセージの表示方法を変えてみるね[p]
+ティラノスクリプトでは、今みたいなアドベンチャーゲームの他に[r]
+ビジュアルノベルのような全画面表示のゲームもつくれるよ。[p]
+
+#
+
+;キャラクター非表示
+[chara_hide name="akane"]
 
 
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="350"  width="600"   y="200"  text="怒った表情も素敵！"  target="*pose1"  ]
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="350"  width="600"   y="300"  text="笑顔をお願いします！"  target="*pose2"  ]
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="350"  width="600"   y="400"  text="面白い顔も見てみたい！"  target="*pose3"  ]
+;メッセージを全画面に切り替え
+[position layer="message0" left=20 top=40 width=1200 height=660 page=fore visible=true ]
+
+どうかな? 物語をじっくり読ませたい場合はこの方式が便利ですね[l][r]
+ティラノスクリプトは非常に強力で、柔軟な表現が可能です。[l][cm]
+
+[font size=40]文字のサイズを変更したり
+[l][r]
+[resetfont]
+[font color="pink"]色を変更したり
+[resetfont][l][r]
+
+[ruby text=る]ル[ruby text=び]ビを[ruby text=ふ]振ることだって[ruby text=かん]簡[ruby text=たん]単にできます[l]
+[cm]
+
+;たて書きにする
+[position vertical=true layer=message0 page=fore margint="45" marginl="0" marginr="70" marginb="60"]
+
+このように縦書きで記述することもできます。[r][l]
+縦書きでも、横書きの時と同じ機能を使うことができます。[r][l]
+
+;横書きに戻す
+[position vertical=false]
+
+横書きと縦書きをシーンによって使い分けることもできます[r][l]
+じゃあ、アドベンチャー形式に戻しますね[p]
+
+;メッセージボックスを元に戻す
+[position layer="message0" left=20 top=400 width=920 height=200 page=fore visible=true]
+
+@chara_show name="akane"
+
+#akane
+メッセージボックスは、自分の好きな画像を使うこともできるよ[p]
+
+
+
+[font color="0x454D51"]
+[deffont color="0x454D51"]
+
+
+;名前部分のメッセージレイヤ削除
+[free name="chara_name_area" layer="message0"]
+
+;メッセージウィンドウの設定
+[position layer="message0" width="1280" height="210" top="510" left="0"]
+[position layer="message0" frame="frame.png" margint="50" marginl="100" marginr="100" opacity="230" page="fore"]
+
+;名前枠の設定
+[ptext name="chara_name_area" layer="message0" color="0xFAFAFA" size="28" bold="true" x="100" y="514"]
+[chara_config ptext="chara_name_area"]
+
+
+
+どうかな？[p]
+ゲームに合わせて自分の好きなデザインを作ってくださいね[p]
+
+あと、デフォルトだとセーブやロードは画面右下のボタンからできるけど[p]
+ウィンドウをカスタマイズすれば、、、、[p]
+
+;メニューボタン非表示
+@hidemenubutton
+
+;ロールボタン追加;;;;;;;;;;;;;;
+
+
+; ロールボタン配置
+
+;クイックセーブボタン
+[button name="role_button" role="quicksave" graphic="button/qsave.png" enterimg="button/qsave2.png" x="40" y="690"]
+
+;クイックロードボタン
+[button name="role_button" role="quickload" graphic="button/qload.png" enterimg="button/qload2.png" x="140" y="690"]
+
+;セーブボタン
+[button name="role_button" role="save" graphic="button/save.png" enterimg="button/save2.png" x="240" y="690"]
+
+;ロードボタン
+[button name="role_button" role="load" graphic="button/load.png" enterimg="button/load2.png" x="340" y="690"]
+
+;オートボタン
+[button name="role_button" role="auto" graphic="button/auto.png" enterimg="button/auto2.png" x="440" y="690"]
+
+;スキップボタン
+[button name="role_button" role="skip" graphic="button/skip.png" enterimg="button/skip2.png" x="540" y="690"]
+
+;バックログボタン
+[button name="role_button" role="backlog" graphic="button/log.png" enterimg="button/log2.png" x="640" y="690"]
+
+;フルスクリーン切替ボタン
+[button name="role_button" role="fullscreen" graphic="button/screen.png" enterimg="button/screen2.png" x="740" y="690"]
+
+;コンフィグボタン（※sleepgame を使用して config.ks を呼び出しています）
+[button name="role_button" role="sleepgame" graphic="button/sleep.png" enterimg="button/sleep2.png" storage="config.ks" x="840" y="690"]
+
+;メニュー呼び出しボタン（※ロールボタンを使うなら不要）
+[button name="role_button" role="menu" graphic="button/menu.png" enterimg="button/menu2.png" x="940" y="690"]
+
+;メッセージウィンドウ非表示ボタン
+[button name="role_button" role="window" graphic="button/close.png" enterimg="button/close2.png" x="1040" y="690"]
+
+;タイトルに戻るボタン
+[button name="role_button" role="title" graphic="button/title.png" enterimg="button/title2.png" x="1140" y="690"]
+
+;;ロールボタン追加終わり
+
+
+こんな風にゲームに必要な機能を画面の上に持たせることも簡単にできるよ[p]
+これはロールボタンといって、ボタンに特別な機能を持たせる事ができます。[p]
+標準で用意されているのは、[l]
+セーブ、[l]
+ロード、[l][cm]
+タイトルへ戻る、
+メニュー表示、
+メッセージ非表示、
+スキップ、
+バックログ、
+フルスクリーン切り替え、
+クイックセーブ、
+クイックロード、
+オートモード！
+[p]
+
+はぁ、はぁ[p]
+
+#
+大丈夫？[p]
+これだけあれば、ゲームを作るには困らなそうだね[p]
+
+#あかね
+さて、もちろん音楽を鳴らすこともできるよ[l][cm]
+それじゃあ、再生するよ？[l][cm]
+
+[link target=*playmusic]【１】うん。再生してください[endlink][r]
+[link target=*noplay]【２】いや。今は再生しないで！[endlink]
+[s]
+
+*playmusic
+
+[cm]
+よし、再生するよ。[l]
+@playbgm time="3000" storage=music.ogg loop=true
+徐々にフェードインしながら再生することもできるんだ[l][cm]
+
+@jump target="*common_bgm"
+
+*noplay
+[cm]
+うん。わかった。再生はしないね。[l][cm]
+また、試してみてね[l][cm]
+
+*common_bgm
+
+あ、そうそう[l][cm]
+今みたいな選択肢で物語を分岐することも、簡単にできるよ。[l][cm]
+
+#あかね
+ここらで、別のキャラクターに登場してもらいましょうか[l][cm]
+やまとー[p]
+[chara_show name="yamato"]
+
+こんな風に。簡単です。[l][r]
+キャラクターは何人でも登場させることができるから、試してみてね。[p]
+
+#yamato
+おい、俺もう、帰っていいかな？[l][cm]
+
+#akane
+あ、ごめんごめん。ありがとう[l][cm]
+
+[chara_hide name="yamato"]
+
+#akane
+これでティラノスクリプトの基本機能の説明は終わりだけど[p]
+どうだったかな？[p]
+
+#
+うん、これなら自分でも作れそうな気がしてきたよ[p]
+
+#あかね
+よかった！[p]
+最初は、ティラノスクリプト公式ページのチュートリアルをやってみると良いと思うよ！[p]
+もちろん、このゲームもティラノスクリプトで動いてるから、参考になると思うし。[p]
+ぜひ、ゲーム制作にチャレンジしてみてね[p]
+プレイしてくれてありがとう。[p]
+
+最後にティラノスクリプトで役立つ情報へのリンクを表示しておくから
+確認してみてね。[p]
+
+[cm]
+
+*button_link
+
+@layopt layer=message0 visible=false
+@layopt layer=fix visible=false
+[anim name="akane" left=600 time=1000]
+
+;リンクボタンを表示
+[glink text="ティラノビルダーの紹介" size=20 width=500 x=30 y=100 color=blue target=tyranobuilder ]
+[glink text="制作事例" size=20 width=500 x=30 y=160 color=blue target=example ]
+[glink text="応用テクニック" size=20 width=500 x=30 y=220 color=blue target=tech ]
+[glink text="役に立つ情報源" size=20 width=500 x=30 y=280 color=blue target=info ]
+[glink text="タグリファレンス" size=20 width=500 x=30 y=340 color=blue target=tagref ]
 
 [s]
 
-*pose1
+*tyranobuilder
 
-[fukidashi_del]
-[chara_move name="migi" time="300" anim="true" wait="false" left="54" effect="easeInOutQuad"]
-[chara_move name="hidari" time="300" anim="true" wait="false" left="-54" effect="easeInOutQuad"]
+[cm]
+@layopt layer=message0 visible=true
+@layopt layer=fix visible=true;
+[font color-"red"]
+「ティラノビルダー」
+[resetfont]
+という無料の開発ツールもあります。[p]
 
-[kuchi chara="hidari" name="u"]
-[kuchi chara="migi" name="u"]
+[image layer=1 page=fore visible=true top=10 left=50 width=560 height=400  storage = builder.png]
 
-[ude chara="migi" name="よし"]
-[ude chara="hidari" name="よし"]
+これは、グラフィカルな画面でノベルゲームを作れるツールです[p]
+スクリプトが苦手な人でもゲーム制作を行うことができるからぜひ試してね。[p]
+[freeimage layer=1]
 
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="普通"]
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="普通"]
-
-[fukidashi_del]
-[wait time=5000]
-
-@jump target=*pose_common
-
-*pose2
-
-[fukidashi_del]
-[chara_move name="migi" time="300" anim="true" wait="false" left="54" effect="easeInOutQuad"]
-[chara_move name="hidari" time="300" anim="true" wait="false" left="-54" effect="easeInOutQuad"]
-
-[kuchi chara="hidari" name="a"]
-[kuchi chara="migi" name="a"]
-
-[ude chara="migi" name="どうぞ"]
-[ude chara="hidari" name="どうぞ"]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="ウィンク"]
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="にこ"]
-
-[wait time=5000]
-
-
-@jump target=*pose_common
-*pose3
-
-[fukidashi_del]
-
-[chara_move name="migi" time="300" anim="true" wait="false" left="54" effect="easeInOutQuad"]
-[chara_move name="hidari" time="300" anim="true" wait="false" left="-54" effect="easeInOutQuad"]
-
-[ude chara="hidari" name="がお"]
-[ude chara="migi" name="がお"]
-
-[mayu_mabuta chara="migi" mayu="キリッ" mabuta="ウィンク"]
-[mayu_mabuta chara="hidari" mayu="キリッ" mabuta="にこ"]
-
-[kuchi chara="hidari" name="u"]
-[kuchi chara="migi" name="u"]
-
-[eye chara="hidari" name="横"]
-[eye chara="hidari" name="横"]
-
-[wait time=2000]
-
-[eye chara="hidari" name="普通"]
-[eye chara="hidari" name="普通"]
-
-[mayu_mabuta chara="migi" mayu="普通" mabuta="ウィンク"]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="にこ"]
-
-[wait time=2000]
-
-[eye chara="hidari" name="横"]
-[eye chara="hidari" name="横"]
-
-[mayu_mabuta chara="migi" mayu="普通" mabuta="にこ"]
-[mayu_mabuta chara="hidari" mayu="普通" mabuta="ウィンク"]
-
-[wait time=2000]
-
-[wait time=5000]
-
-@jump target=*pose_common
-
-*pose_common
-
-
-[eye chara="hidari" name="普通"]
-[eye chara="hidari" name="普通"]
-
-[say chara="hidari" kuchi="u"]
-
-ここまでサービスしたんだから[r]
-わかってるわね？
-
-[_p]
-
-
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="300"  width="600"   y="200"  text="わかってる。"  target="*a1"  ]
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="300"  width="600"   y="300"  text="わかりました。"  target="*a1"  ]
-[glink  color="btn_26_red"  storage="scene1.ks"  size="24"  x="300"  width="600"   y="400"  text="わかり申した。"  target="*a1"  ]
+@jump target=button_link
 
 [s]
+*example
+@layopt layer=message0 visible=true
+@layopt layer=fix visible=true
+これまで、ティラノスクリプトを使って沢山のゲームが作成されています。[p]
+一部の制作事例を公式サイトに乗せているのでよければ確認してくださいね。[p]
 
-*a1
+[iscript]
+window.open("http://tyrano.jp/home/example");
+[endscript]
 
-[web url="https://tyrano.booth.pm/items/3262751"]
+@jump target=button_link
 
-[say chara="hidari" kuchi="u"]
+[cm]
+[s]
 
-はい、解散！
+*tech
+@layopt layer=message0 visible=true
+@layopt layer=fix visible=true
+このサンプルでは、ティラノスクリプトのごく一部の機能しか紹介できていません[p]
+さらに出来ることを知りたい場合、スクリプトを丸ごとダウンロードできるようになっているので[p]
+そのサンプルを触ってみることをオススメします！[p]
 
-[_p]
+[iscript]
+window.open("http://tyrano.jp/home/demo");
+[endscript]
 
-[mask time="1000" storage="display_black.png"]
+@jump target=button_link
 
- 
+
+*info
+@layopt layer=message0 visible=true
+@layopt layer=fix visible=true
+ティラノスクリプトでわからないことがあったら[p]
+公式掲示板で質問したり、Wikiなどもありますので参考にしてみてください[p]
+@jump target=button_link
+
+*tagref
+@layopt layer=message0 visible=true
+@layopt layer=fix visible=true
+タグは詳細なリファレンスページが用意されています。[p]
+このページでさらに詳細な使い方を身につけてください[p]
+
+[iscript]
+window.open("http://tyrano.jp/home/tag");
+[endscript]
+
+@jump target="*button_link"
+
 [s]
