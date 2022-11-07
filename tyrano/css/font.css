@@ -1,0 +1,14 @@
+/*ウェブフォントを使用する場合はここに定義を追加して下さい*/
+
+
+    
+@font-face {
+	font-family:"851Gkktt";
+	src:url("../../data/others/font/851Gkktt_005.eot?") format("eot"),
+	url("../../data/others/font/851Gkktt.woff") format("woff"),
+	url("../../data/others/font/851Gkktt_005.ttf") format("truetype"),
+	url("../../data/others/font/851Gkktt.svg#851Gkktt") format("svg");
+	font-weight:normal;font-style:normal;
+}
+
+

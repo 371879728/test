@@ -1,0 +1,80 @@
+.highlight {
+  font-family:"851Gkktt"!important;
+  text-shadow: 0.1em 0.1em 0px #e53b44, 0.03em 0.03em 0px #e53b44, 0.07em 0.07em 0px #e53b44;
+}
+
+._rotate{
+  transform: rotate(5deg);
+  -webkit-transition: all .3s cubic-bezier(.17,.87,.55,1.21);
+  transition: all .3s cubic-bezier(.17,.87,.55,1.21);
+}
+
+._scale{
+  transform: rotate(5deg) scale(0);
+  -webkit-transition: all 0s;
+  transition: all 0s;
+}
+
+._migiue{
+  transform: rotate(5deg) scale(0.3);
+  -webkit-transition: all .4s cubic-bezier(.24,.21,.44,.99) .2s;
+  transition: all .4s cubic-bezier(.24,.21,.44,.99) .2s;
+  left: 510px!important;
+  opacity: 0;
+}
+
+/* - - - */
+
+.train{
+  -webkit-animation: train 4s linear 1;
+  animation: train 4s ease-out 1;
+}
+@-webkit-keyframes train {
+  100% {
+    left: -1338px;
+  }
+}
+@keyframes train {
+  100% {
+    left: -1338px;
+  }
+}
+
+.train2{
+  -webkit-animation: train2 4s linear 1;
+  animation: train2 4s ease-out 1;
+}
+@-webkit-keyframes train2 {
+  100% {
+    left: 1278px;
+  }
+}
+@keyframes train2 {
+  100% {
+    left: 1278px;
+  }
+}
+
+/* - - - */
+
+.turn_start{
+  -webkit-transition: transform .3s ease-out;
+  transition: transform .3s ease-out;
+  transform: rotateY(90deg);
+}
+.turn_end{
+  -webkit-transition: transform .6s ease-out;
+  transition: transform .6s cubic-bezier(.17,.67,.53,2.04);
+  transform: rotateY(0deg);
+}
+
+/* - - - */
+
+/* 画像にアンチエイリアスをかけないように */
+img{
+  -ms-interpolation-mode: nearest-neighbor;   /* IE8+ */
+  image-rendering: -webkit-optimize-contrast; /* Safari (WebKit) */
+  image-rendering: -moz-crisp-edges;          /* Firefox (Gecko) */
+  image-rendering: -o-crisp-edges;            /* Opera 12.x */
+  image-rendering: pixelated;                 /* Chrome 41+, Opera 29+ (CSS4) */
+}
